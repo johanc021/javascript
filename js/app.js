@@ -1,3 +1,5 @@
+alert("El siguiente programa, emula el ingreso de activos (computadores o dispositivos tecnologicos al sistema de información un ejemplo es Marca: Asus, Serial: F8E2FE3F, Linea: Tuf Gaming F15, Tipo de equipo: Portatil");
+
 let cantidad = parseInt(prompt("Cuantos equipos desea ingresar al sistema? "));
 
 if(!isNaN(cantidad) && cantidad != null && cantidad != "" && cantidad >= 0){
@@ -23,5 +25,5 @@ function solicitarDatos (id){
     }
 
 function imprimirDatos(id, marca, serial, linea, tipoEquipo) {
-    alert("los datos del " + id + " equipo ingresado en el sistema son -> Marca: " + marca + ", Serial: " + serial + ", Linea: " + linea + ", Linea: " + tipoEquipo)
+    alert("los datos del " + id + " equipo ingresado en el sistema son -> Marca: " + marca + ", Serial: " + serial + ", Linea: " + linea + ", Tipo de Equipo: " + tipoEquipo)
 }
