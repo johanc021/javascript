@@ -26,7 +26,7 @@ body {
     font-family: var(--open-sans);
     background-color: #6E7FF3;
     background-image: var(--bodyBackground-image);
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-size: cover;
     /* overflow: hidden; */
     height: 100vh;
@@ -105,10 +105,6 @@ body {
     text-align: center;
     font-family: var(--poppins);
     
-}
-
-.main__imgDescripcion {
-
 }
 
 .main__img {

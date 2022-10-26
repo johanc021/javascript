@@ -1,39 +1,48 @@
-alert("El siguiente programa, emula el ingreso de activos (computadores o dispositivos tecnologicos al sistema de información un ejemplo es Marca: Asus, Serial: F8E2FE3F, Linea: Tuf Gaming F15, Tipo de equipo: Portatil");
+// const listaElementos = [];
+// let ancho = prompt("Ingresa el ancho :v ");
 
-let cantidad = parseInt(prompt("Cuantos equipos desea ingresar al sistema? "));
+// do{
+//     let entrada = prompt("Ingresa un elemento");
+//     listaElementos.push(entrada);
 
-if(!isNaN(cantidad) && cantidad != null && cantidad != "" && cantidad >= 0){
-    
-    let n = 1;
+// } while (listaElementos.length != ancho);
 
-    for(n; n <= cantidad; n++){
-        solicitarDatos(n);
+// const nuevaLista = listaElementos.concat(['clavos', 'laminas']);
+
+// const eliminar = (nombre) => {
+//     let index = nuevaLista.indexOf(nombre);
+//     console.log('entre',index)
+//     if (index != -1) {
+//         console.log("El elemento "+nombre+" en el indice "+index+" fue eliminado");
+//         nuevaLista.splice(index, 1);
+//     }
+// }
+
+// console.log('longitud de la lista: '+ nuevaLista.length);
+// console.log(nuevaLista.join("\n"));
+// let datoAEliminar = prompt("Ingresa elemento a borrar");
+// eliminar(datoAEliminar);
+// console.log(nuevaLista.join("\n"));
+
+class Producto {
+    constructor(nombre, precio) {
+        this.nombre = nombre;
+        this.preProdcio = parseFloat(precio);
+        this.vendido = false;
     }
-
-}else{
-    alert('El dato ingresado es igual a 0, menor de 0 o no es un numero, inicia el programa nuevamente');
+    deducirIVA() {
+        this.precio = this.precio * 1.21;
+    }
 }
 
-function solicitarDatos (id){
-        alert("Ingrese los datos del " + id + " equipo:")
-        let identificador = id;
-        /* pedirMarca(); */
-        /* let marca = prompt("Ingrese la marca del Equipo"); */
-        pedirMarca();
-        let serial = prompt("Ingrese la serial del Equipo");
-        let linea = prompt("Ingrese la linea del Equipo");
-        let tipoEquipo = prompt("Ingrese la tipo de equipo del Equipo");
-        imprimirDatos(identificador, marca, serial, linea, tipoEquipo)
-    }
+const productos = [];
 
-function imprimirDatos(id, marca, serial, linea, tipoEquipo) {
-    alert("los datos del " + id + " equipo ingresado en el sistema son -> Marca: " + marca + ", Serial: " + serial + ", Linea: " + linea + ", Tipo de Equipo: " + tipoEquipo);
+productos.push(new Producto("Arroz", 120));
+productos.push(new Producto("Papel", 130));
+productos.push(new Producto("Sopa", 120));
+
+for (const producto of productos) {
+    console.log("----------------------");
+    console.log(producto.nombre);
+    console.log(producto.precio);
 }
-
-const pedirMarca = () => {
-	let marca = prompt("Ingrese la marca del Equipo");
-	while (marca !== null) {
-		marca = prompt("Ingrese la marca del Equipo");
-	}
-	return marca;
-};
