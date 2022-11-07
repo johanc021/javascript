@@ -12,21 +12,54 @@ class Activo {
         this.camara = camara;
         this.contrato = contrato;
         this.estado = estado;
+    };
+
+    listadoActivos(){
+        return activos;
+    };
+
+    nuevoActivo(){
+        activos.push(
+            {
+                id : this.id,
+                marca : this.marca,
+                linea : this.linea,
+                serial : this.serial,
+                placa : this.placa,
+                modelo : this.modelo,
+                tipoEquipo : this.tipoEquipo,
+                unidadOptica : this.unidadOptica,
+                camara : this.camara,
+                contrato : this.contrato,
+                estado : this.estado
+            }
+        )
     }
 
-    imprimirDatos(marca){
-        alert('Los datos ingresados son ${marca}' )
+    borrarActivo(index){
+        activos.splice(index, 1)
     }
+
+    filtroActivo(texto){
+        const filtro = activos.filter(activo => activo.name.includes(texto));
+        return filtro;
+    }
+
+    busquedaActivo(placa){
+        const busqueda = activos.find(activo => activo.placa === Number(placa));
+        return busqueda;
+    }
+
 };
 
-
-//array para guardar datos del objeto instanciado
 const nuevoActivo = [];
-
 
 function datosActivo (){
     //instanciando Activo
     const instanciaActivo = new Activo;
+
+    //array para guardar datos del objeto instanciado
+    
 
     //solicitud de datos
     const marca = instanciaActivo.marca = prompt("Digite la marca del equipo");
@@ -40,34 +73,40 @@ function datosActivo (){
     const contrato = instanciaActivo.contrato = prompt("Digite el numero del contrato por donde fue adquirido el equipo");
     const estado = instanciaActivo.estado = prompt("Digite si el equipo esta activo o inactivo").toUpperCase(); */
 
-    nuevoActivo.push(marca, linea/* , serial, placa, modelo, tipoEquipo, unidadOptica, camara, contrato, estado */);
-}
+    nuevoActivo.push(marca, linea);
+    /* nuevoActivo.push(marca, linea, serial, placa, modelo, tipoEquipo, unidadOptica, camara, contrato, estado); */
 
-datosActivo()
+    /* console.log(nuevoActivo); */
 
-
-
-
-
-//agregar un objeto al array
-let agregarActivo = nuevoActivo.push('Toshiba', 'Satellite'/* , '98FD5', '2489', '2021', 'Portatil', 'NO', 'SI', 'CCV-056-2021', 'ACTIVO' */);
-
-
-
-
-//recorrido del array
-nuevoActivo.forEach(array);
-
-function array(item, index) {
-    console.log(`El index ${index} contiene ${item}`)
 }
 
 
 
-//llamada a un objeto del array
-/* console.log(nuevoActivo[1]); */
 
-//******************************* array de objetos Activos ************************* */
+datosEquipo(nuevoActivo, imprimirDatos);
+
+
+function imprimirDatos(marca, linea) {
+    alert("los datos del equipo ingresado en el sistema son -> Marca: " + marca + ", Linea: " + linea);
+}
+
+function datosEquipo(arreglo, funcion) {
+    for (const elemento of arreglo) {
+        funcion(elemento.marca, elemento.linea);
+    }
+};
+
+
+
+
+
+/* console.log(activos[0].placa)
+
+/* filtroActivo(activos[0].placa) */
+
+
+
+//array de objetos Activos
 const activos = [
     {
         id: 1,
@@ -120,70 +159,11 @@ const activos = [
         camara: "NO",
         contrato: "CCV-054-2021",
         estado: "Activo"
-    },
-    {
-        id: 5,
-        marca: "Asus",
-        linea: "Zen Book 15",
-        serial: "F5E12FD",
-        placa: "9678",
-        modelo: "2022",
-        tipoEquipo: "Laptop - Portatil",
-        unidadOptica: "SI",
-        camara: "SI",
-        contrato: "CCV-089-2022",
-        estado: "Activo"
-    },
-    {
-        id: 6,
-        marca: "Asus Rog",
-        linea: "Gaming",
-        serial: "FWEFDS5215E",
-        placa: "4856",
-        modelo: "2022",
-        tipoEquipo: "Escritorio",
-        unidadOptica: "SI",
-        camara: "NO",
-        contrato: "CCV-100-2022",
-        estado: "Activo"
-    },
+    }
 ];
 
-/* Aplicando metodos estos los incluiria dentro del objeto para llevarlos al DOM */
-
-/* Usando Filtros */
-let encontrarActivo = activos.find((activo) => activo.marca === "Asus");
-console.log(encontrarActivo);
-
-
-/* usando filter, include */
-const filtrarActivos = activos.filter((activo) => activo.marca.includes('Asus'));
-console.log(filtrarActivos);
-
-
-/* usando Some */
-const algunActivo = activos.some((activo) => activo.nombre === "8620");
-console.log(algunActivo);
-
-/* usando map */
-const placaActivo = activos.map((activo) => activo.placa);
-console.log(placaActivo);
-
-/* Usando Sort */
-const ordenarActivos = activos.sort((a, b) => a - b);
-console.log(ordenarActivos);
-
-/* nuevo array */
-const nuevoArray = nuevoActivo.slice(0, 1);
-console.log(nuevoArray);
-
-
-
-
-/* ************************ Añadiendo datos del array de objetos a la tabla ************************************/
 
 const llenarTabla = () => {
-
     const tablaActivos = document.querySelector('#tabla');
 
     activos.forEach((activo) => {
@@ -222,4 +202,4 @@ const llenarTabla = () => {
 
 llenarTabla();
 
-
+datosActivo();

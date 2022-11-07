@@ -120,17 +120,28 @@ body {
     bottom: 0;
     width: 100%;
     height: 80px;
+    margin: 0 auto;
     color: white;
     display: flex;
     padding: 20px;
 }
 
+.footert__descripcion {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 1400px;
+    margin-bottom: 0px;
+
+}
 .footert__descripcion h4{
     max-width: 1600px;
     font-family: var(--open-sans);
     color: white;
     font-weight: 900;
     margin: 0 auto;
+    
 }
 
 
@@ -195,12 +206,30 @@ body {
     
 }
 
-.mainActivos__titulo {
+.mainActivos__container {
     padding-left: 20px;
     margin-top: 30px;
     margin-bottom: 30px;
     /* background-color: antiquewhite; */
     color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.mainActivos .mainActivos__btn {
+    text-decoration: none;
+    color: white;
+    padding-right: 20px;
+}
+
+thead {
+    color: white;
+}
+
+tr {
+    font-family: var(--open-sans);
+    font-weight: 400;
+    text-align: center;
 }
 
 
