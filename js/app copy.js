@@ -81,8 +81,6 @@ function datosActivo (){
 }
 
 
-
-
 datosEquipo(nuevoActivo, imprimirDatos);
 
 

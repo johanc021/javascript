@@ -15,7 +15,7 @@ class Activo {
     }
 
     imprimirDatos(marca){
-        alert('Los datos ingresados son ${marca}' )
+        alert(`Los datos ingresados son ${marca}` )
     }
 };
 
@@ -50,7 +50,9 @@ datosActivo()
 
 
 //agregar un objeto al array
-let agregarActivo = nuevoActivo.push('Toshiba', 'Satellite'/* , '98FD5', '2489', '2021', 'Portatil', 'NO', 'SI', 'CCV-056-2021', 'ACTIVO' */);
+let agregarActivo1 = nuevoActivo.push('Toshiba', 'Satellite'/* , '98FD5', '2489', '2021', 'Portatil', 'NO', 'SI', 'CCV-056-2021', 'ACTIVO' */);
+
+let agregarActivo2 = nuevoActivo.push('Emachines', 'M724'/* , 'FE45DF', '2748', '2020', 'Portatil', 'NO', 'SI', 'CCV-057-2020', 'ACTIVO' */);
 
 
 
@@ -221,5 +223,3 @@ const llenarTabla = () => {
 }
 
 llenarTabla();
-
-
