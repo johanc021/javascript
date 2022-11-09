@@ -14,8 +14,8 @@ class Activo {
         this.estado = estado;
     }
 
-    imprimirDatos(marca){
-        alert(`Los datos ingresados son ${marca}` )
+    imprimirDatos(){
+        alert(`Los datos ingresados son ${this.marca}, ${this.linea}` )
     }
 };
 
@@ -41,6 +41,8 @@ function datosActivo (){
     const estado = instanciaActivo.estado = prompt("Digite si el equipo esta activo o inactivo").toUpperCase(); */
 
     nuevoActivo.push(marca, linea/* , serial, placa, modelo, tipoEquipo, unidadOptica, camara, contrato, estado */);
+
+    Activo.imprimirDatos(marca, linea)
 }
 
 datosActivo()
