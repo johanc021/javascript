@@ -246,94 +246,6 @@ const eliminarActivo = (index) => {
     })
 }
 
-
-/* function validacionTexto(linea, serial, modelo, tipoEquipo, contrato) {
-    let text = 'El campo no puede estar vacío.';
-    let textMarca = document.getElementById('errorMarca');
-    let textLinea = document.getElementById('errorlinea');
-    let val1;
-    let val2;
-    if (.length < 2 || linea === '' || Number(linea)) {
-        textMarca.innerHTML = text;
-    } else {
-        textMarca.innerHTML = '';
-        val1 = true;
-    }
-
-    if (serial.length < 2 || serial === '' || Number(serial)) {
-        textserial.innerHTML = text;
-    } else {
-        textLastName.innerHTML = '';
-        val2 = true;
-    }
-
-    if (val1 && val2) {
-        return true;
-    } else {
-        return false;
-    }
-} */
-
-/* function validacionNumero(age, dni) {
-    let textCampoAge = 'El campo no puede estar vacío y debe ser un número mayor a dos digitos.';
-    let textCampoDNI = 'El campo no puede estar vacío y debe ser un número de 8 digitos.';
-    let textAge = document.getElementById('errorAge');
-    let textDNI = document.getElementById('errorDni');
-    let val1;
-    let val2;
-    if (age === '' || !Number(age) || age > 99) {
-        textAge.innerHTML = textCampoAge;
-    } else {
-        textAge.innerHTML = '';
-        val1 = true;
-    }
-
-    if (dni === '' || !Number(dni) || dni.toString().length !== 8) {
-        textDNI.innerHTML = textCampoDNI;
-    } else {
-        if (activos.some((alumno => alumno.dni === dni))) {
-            textDNI.innerHTML = 'El valor ingresado es igual a un DNI existente en el sistema.'
-        } else {
-            textDNI.innerHTML = '';
-            val2 = true;
-        }
-
-    }
-
-
-    if (val1 && val2) {
-        return true;
-    } else {
-        return false;
-    }
-
-} */
-
-/* const validaciones = function () {
-
-
-    let linea = document.getElementById('linea').value;
-    let serial = document.getElementById('serial').value;
-    let placa = document.getElementById('placa').value;
-    let modelo = document.getElementById('modelo').value;
-    let tipoEquipo = document.getElementById('TipoEquipo').value;
-    let contrato = document.getElementById('contrato').value;
-
-
-    let uO = unidadOptica.addEventListener("change", validaCheckbox, false);
-    let cam = camara.addEventListener("change", validaCheckbox, false);
-    let est = estado.addEventListener("change", validaCheckbox, false);
-
-
-    if (validacionTexto(linea, serial, modelo, tipoEquipo, contrato) && validacionNumero(placa)) {
-        let botonGuardar = document.getElementById('botonGuardar');
-        botonGuardar.disabled = false;
-        return [name, lastname, age, dni];
-    }
-
-    return [linea, serial]
-} */
-
 const agregarActivo = () => {
 
     let marca = selectMarca();
@@ -362,6 +274,7 @@ const agregarActivo = () => {
 const recuperarArraylocalStorage = () => {
     let array = localStorage.getItem('activo');
     array = JSON.parse(array)
+    console.log(array)
     console.log(array.marca)
 }
 
@@ -467,18 +380,6 @@ function validacheckEstado() {
 
 
 window.addEventListener('load', loadArray(instanciaActivo.listarActivos()));
-
-/* let buscador = document.getElementById('buscador');
-buscador.addEventListener('change', buscar); */
-
-/* let formulario = document.getElementById('formulario');
-formulario.addEventListener('change', validaciones); */
-
-/* btnGuardar.addEventListener('click', agregarActivo);
-
-abrirModal.addEventListener('click', () => {
-    modalContainer.classList.add('modal-contenedor-activo')
-}) */
 
 btnGuardar.addEventListener('click', (e) => {
     e.preventDefault();
