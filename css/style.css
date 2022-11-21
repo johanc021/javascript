@@ -230,6 +230,42 @@ tr {
     font-family: var(--open-sans);
     font-weight: 400;
     text-align: center;
+    color: white;
 }
 
 
+.modal-contenedor {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(10, 10, 10, 0.3);
+    position: fixed;
+    inset: 0;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    visibility: hidden;
+    opacity: 0;
+    transition: all .3s ease-in-out;
+}
+
+.form-modal {
+    background-color: #fff;
+    border-radius: 10px;
+    width: 600px;
+    height: auto;
+    padding: 10px;
+
+}
+
+
+.modal-contenedor-activo {
+    opacity: 1;
+    visibility: visible;
+}
+
+.error {
+    color: red;
+    margin: 0;
+}
