@@ -222,6 +222,30 @@ body {
     padding-right: 20px;
 }
 
+.sectionBuscar {
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 auto;
+}
+
+input{
+    height: 2.3rem;
+    /* border-radius: 0.3rem; */
+    color: rgb(243, 238, 238);
+    background-color: transparent;
+    padding-left: 10px;
+    border: 1px;
+    width: 320px;
+    border-bottom: 2px solid white;
+}
+
+input::placeholder {
+    color: white;
+    font-weight: 500;
+}
+
 thead {
     color: white;
 }
@@ -234,7 +258,7 @@ tr {
 }
 
 
-.modal-contenedor {
+.modal-contenedor{
     width: 100%;
     height: 100vh;
     background-color: rgba(10, 10, 10, 0.3);
@@ -259,6 +283,30 @@ tr {
 
 }
 
+.modal-contenedor-editar {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(10, 10, 10, 0.3);
+    position: fixed;
+    inset: 0;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    visibility: hidden;
+    opacity: 0;
+    transition: all .3s ease-in-out;
+}
+
+.form-modal {
+    background-color: #fff;
+    border-radius: 10px;
+    width: 600px;
+    height: auto;
+    padding: 10px;
+
+}
 
 .modal-contenedor-activo {
     opacity: 1;
@@ -269,3 +317,5 @@ tr {
     color: red;
     margin: 0;
 }
+
+

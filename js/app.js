@@ -1,24 +1,19 @@
 const abrirModal = document.querySelector('#abrir-modal')
 const cerrarModal = document.querySelector('#cerrar-modal')
-
-
 const modalContainer = document.querySelector('#modal-contenedor')
+
+
 
 abrirModal.addEventListener('click', () => {
     modalContainer.classList.add('modal-contenedor-activo')
 })
-
-
-/* let unidadOptica = document.getElementById('checkUnidadOptica');
-let camara = document.getElementById('checkCamara');
-let estado = document.getElementById('checkActivo'); */
 
 const activos = [
     {
         marca: "Asus",
         linea: "Tuf Gaming F15",
         serial: "F8F2DSAE66F",
-        placa: "8956",
+        placa: 8956,
         modelo: "2019",
         tipoEquipo: "Laptop - Portatil",
         unidadOptica: "SI",
@@ -30,7 +25,7 @@ const activos = [
         marca: "Acer",
         linea: "Nitro",
         serial: "RE5F2E",
-        placa: "2054",
+        placa: 2054,
         modelo: "2021",
         tipoEquipo: "Laptop - Portatil",
         unidadOptica: "NO",
@@ -38,11 +33,11 @@ const activos = [
         contrato: "CCV-055-2021",
         estado: "Activo"
     },
-    /* {
+    {
         marca: "Lenovo",
         linea: "IdeaPad Gaming 3",
         serial: "DF5E2D3",
-        placa: "1247",
+        placa: 1247,
         modelo: "2019",
         tipoEquipo: "Laptop - Portatil",
         unidadOptica: "SI",
@@ -54,38 +49,14 @@ const activos = [
         marca: "Hewlett Packard",
         linea: "Pro desk 6300",
         serial: "FDSA8FE2",
-        placa: "6633",
+        placa: 6633,
         modelo: "2021",
         tipoEquipo: "Escritorio",
         unidadOptica: "SI",
         camara: "NO",
         contrato: "CCV-054-2021",
         estado: "Activo"
-    },
-    {
-        marca: "Asus",
-        linea: "Zen Book 15",
-        serial: "F5E12FD",
-        placa: "9678",
-        modelo: "2022",
-        tipoEquipo: "Laptop - Portatil",
-        unidadOptica: "SI",
-        camara: "SI",
-        contrato: "CCV-089-2022",
-        estado: "Activo"
-    },
-    {
-        marca: "Asus Rog",
-        linea: "Gaming",
-        serial: "FWEFDS5215E",
-        placa: "4856",
-        modelo: "2022",
-        tipoEquipo: "Escritorio",
-        unidadOptica: "SI",
-        camara: "NO",
-        contrato: "CCV-100-2022",
-        estado: "Activo"
-    }, */
+    }
 ];
 
 
@@ -130,26 +101,32 @@ class Activo {
         activos.splice(index, 1);
     }
 
-    busquedaActivoPlaca(texto) {
+    busquedaActivoMarca(texto) {
         const busqueda = activos.filter((activo => activo.marca.includes(texto)));
-
         return busqueda;
 
     }
 
-    busquedaActivo(numero) {
-        const busquedaPlaca = activos.find((activo => activo.placa === Number(numero)));
-
+    busquedaActivoPlaca(numero) {
+        const busquedaPlaca = activos.filter((activo => activo.placa === Number(numero)));
         return busquedaPlaca;
     }
+
+    /* encontrarActivo(index) {
+        const busquedaActivo = activos.find((activo) => activo.index === index)
+        return busquedaActivo;
+    } */
+
+
+
 
 }
 
 const instanciaActivo = new Activo;
 
-
 //cargar array en tabla
 const loadArray = (activos) => {
+
     let tabla = document.getElementById('tabla');
     while (tabla.firstChild) {
         tabla.removeChild(tabla.firstChild);
@@ -160,9 +137,10 @@ const loadArray = (activos) => {
     if (Array.isArray(activos)) {
         activos.forEach((activo, index) => {
             const tr = document.createElement('tr')
+            let identificador = i++
             tr.innerHTML = `
             <tr>
-                <td>${i++}</td>
+                <td>${identificador}</td>
                 <td>${activo.marca}</td>
                 <td>${activo.linea}</td>
                 <td>${activo.serial}</td>
@@ -178,8 +156,8 @@ const loadArray = (activos) => {
             const btns = document.createElement('td')
             btns.innerHTML = `
             <td>
-                <button type="button" onclik="EditarActivo(${index})" class="btn btn-secondary btn-sm">Editar</button>
-                <button id="btnEliminar" onclick="eliminarActivo(${index})" type="button" class="btn btn-danger btn-sm">Eliminar</button>
+                <button id="btnEditar" onclick="editarActivo(${index})" type="button" class="btn btn-secondary btn-sm">Editar</button>
+                <button onclick="eliminarActivo(${index})" type="button" class="btn btn-danger btn-sm">Eliminar</button>
             </td>
         `
 
@@ -207,14 +185,17 @@ const loadArray = (activos) => {
     }
 }
 
+
+
 const buscar = () => {
     let valorBusqueda = document.getElementById('buscador').value;
     if (valorBusqueda === '') {
         loadArray(instanciaActivo.listarActivos());
     } else if (Number(valorBusqueda)) {
-        loadArray(instanciaActivo.busquedaAlumnoDNI(valorBusqueda));
-    } else {
+        console.log(valorBusqueda)
         loadArray(instanciaActivo.busquedaActivoPlaca(valorBusqueda));
+    } else {
+        loadArray(instanciaActivo.busquedaActivoMarca(valorBusqueda));
     }
 }
 
@@ -245,6 +226,9 @@ const eliminarActivo = (index) => {
         }
     })
 }
+
+
+
 
 const agregarActivo = () => {
 
@@ -333,16 +317,18 @@ checkboxUO.addEventListener("change", validaCheckboxUO, false);
 
 function validaCheckboxUO() {
     let checked = checkboxUO.checked;
-    if (checked) {
+    const verificacion = (checked) ? estado = 'SI' : estado = 'NO'
+    return verificacion
+
+    //version if
+    /* if (checked) {
         let estado = 'SI'
         return estado
-        /* console.log(estado) */
 
     } else {
         let estado = 'NO'
         return estado
-        /* console.log(estado) */
-    }
+    } */
 }
 
 // Validacon de check camara
@@ -352,13 +338,17 @@ checkboxCamara.addEventListener("change", validaCheckCamara, false);
 
 function validaCheckCamara() {
     let checked = checkboxCamara.checked;
-    if (checked) {
+    const verificacion = (checked) ? camara = 'SI' : camara = 'NO'
+    return verificacion
+
+    //version if
+    /* if (checked) {
         let camara = 'SI'
         return camara
     } else {
         let camara = 'NO'
         return camara
-    }
+    } */
 }
 
 // Validacion de check estado
@@ -369,17 +359,25 @@ checkboxEstado.addEventListener("change", validacheckEstado, false);
 
 function validacheckEstado() {
     let checked = checkboxEstado.checked;
-    if (checked) {
+    const verificacion = (checked) ? estado = 'Activo' : estado = 'Inactivo'
+    return verificacion
+
+    //version if
+    /* if (checked) {
         estado = 'Activo'
         return estado
     } else {
         estado = 'Inactivo'
         return estado
-    }
+    } */
 }
 
 
 window.addEventListener('load', loadArray(instanciaActivo.listarActivos()));
+
+let buscador = document.getElementById('buscador');
+buscador.addEventListener('change', buscar);
+
 
 btnGuardar.addEventListener('click', (e) => {
     e.preventDefault();
@@ -399,3 +397,26 @@ btnGuardar.addEventListener('click', (e) => {
     }).showToast();
 })
 
+
+const abrirModalEditar = document.querySelector('#btnEditar');
+const modalContainerEditar = document.querySelector('#modal-contenedor-editar')
+abrirModalEditar.addEventListener('click', () => {
+    modalContainerEditar.classList.add('modal-contenedor-activo')
+})
+
+
+const abrirModEditar = (marca/* , linea, serial, placa, modelo, tipoEquipo, unidadOptica, camara, contrato, estado */) => {
+
+    const editarMarca = document.querySelector('#eMarca').value = marca
+
+}
+
+const editarActivo = (index) => {
+
+    /* console.log(activos[index].marca) */
+    /* console.log(index) */
+
+    const editActivo = { marca, linea, serial, placa, modelo, tipoEquipo, unidadOptica, camara, contrato, estado } = activos[index]
+
+    abrirModEditar();
+}
