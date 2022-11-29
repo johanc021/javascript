@@ -400,14 +400,33 @@ btnGuardar.addEventListener('click', (e) => {
 
 const abrirModalEditar = document.querySelector('#btnEditar');
 const modalContainerEditar = document.querySelector('#modal-contenedor-editar')
-abrirModalEditar.addEventListener('click', () => {
+
+/* abrirModalEditar.addEventListener('click', () => {
     modalContainerEditar.classList.add('modal-contenedor-activo')
+}) */
+
+
+abrirModalEditar.forEach(btn => {
+    btn.addEventListener('click', () => {
+        console.log(btn)
+        modalContainerEditar.classList.add('modal-contenedor-activo')
+    })
 })
 
+/* abrirModalEditar.forEach(btn => {
+    btn.addEventListener('k', () => {
+        console.log(btn)
+        modalContainerEditar.classList.add('modal-contenedor-activo')
+    })
+}) */
 
-const abrirModEditar = (marca/* , linea, serial, placa, modelo, tipoEquipo, unidadOptica, camara, contrato, estado */) => {
 
-    const editarMarca = document.querySelector('#eMarca').value = marca
+const abrirModEditar = (/* marca,  */linea, serial, placa/* , modelo, tipoEquipo, unidadOptica, camara, contrato, estado */) => {
+
+    /* const editarMarca = document.querySelector('#eMarca').value = marca */
+    const editarLinea = document.querySelector('eLinea').value = linea;
+    const editarSerial = document.querySelector('eSerial').value = serial;
+    const editarPlaca = document.querySelector('ePlaca').value = placa;
 
 }
 
@@ -418,5 +437,5 @@ const editarActivo = (index) => {
 
     const editActivo = { marca, linea, serial, placa, modelo, tipoEquipo, unidadOptica, camara, contrato, estado } = activos[index]
 
-    abrirModEditar();
+    abrirModEditar(linea, serial, placa);
 }
