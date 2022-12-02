@@ -116,9 +116,11 @@ class Activo {
         const busquedaActivo = activos.find((activo) => activo.index === index)
         return busquedaActivo;
     } */
+
+
+
+
 }
-
-
 
 const instanciaActivo = new Activo;
 
@@ -154,7 +156,7 @@ const loadArray = (activos) => {
             const btns = document.createElement('td')
             btns.innerHTML = `
             <td>
-                <button id="${activo.placa}" type="button" class="btn btn-secondary btn-sm">Editar</button>
+                <button id="btnEditar" onclick="editarActivo(${index})" type="button" class="btn btn-secondary btn-sm">Editar</button>
                 <button onclick="eliminarActivo(${index})" type="button" class="btn btn-danger btn-sm">Eliminar</button>
             </td>
         `
@@ -162,20 +164,6 @@ const loadArray = (activos) => {
             tr.append(btns);
             tabla.append(tr);
 
-            //para boton editar
-            const editar = document.getElementById(activo.placa);
-            /* console.log(editar); */
-            editar.addEventListener('click', () => {
-                modalContainerEditar.classList.add('modal-contenedor-activo')
-                const editar = document.getElementById(activo.placa);
-
-                editar.addEventListener("click", (e) => {
-                    /* openModal(e.target.id); */
-                    console.log(e.target.id)
-                    /* openModal(activo.placa) */
-
-                });
-            })
 
         });
     } else {
@@ -196,114 +184,6 @@ const loadArray = (activos) => {
             `;
     }
 }
-
-/* const openModal = (id) => {
-
-
-    const activo = activos.find((activo) => activo.placa === parseInt(id));
-    console.log(activo)
-    modalContainerEditar.innerHTML = `
-            <div id="form-modal" class="form-modal">
-                <form action="" class="form">
-                    <div>
-                    <div class="row align-items-start">
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <div class="col-12">
-                                        <select id="eMarca" class="form-select" aria-label="Default select example" onchange="selectMarca()">
-                                            <option selected>Seleccione una Marca</option>
-                                            <option value="1">Asus</option>
-                                            <option value="2">Acer</option>
-                                            <option value="3">HP</option>
-                                            <option value="4">Toshiba</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div>
-                                        <div class="input-group">
-                                            <span class="input-group-text" id="inputGroup-sizing-default">Linea</span>
-                                            <input id="eLinea" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group">
-                                        <span class="input-group-text" id="inputGroup-sizing-default">Serial</span>
-                                        <input id="eSerial" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                                    </div>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div>
-                                        <div class="input-group">
-                                            <span class="input-group-text" id="inputGroup-sizing-default">Placa</span>
-                                            <input id="ePlaca" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <div>
-                                        <div class="input-group">
-                                            <span class="input-group-text" id="inputGroup-sizing-default">Modelo</span>
-                                            <input id="eModelo" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <div class="col-12">
-                                        <select id="eTipoEquipo" class="form-select" aria-label="Default select example" onchange="selectTipoPortatil()">
-                                            <option selected>Seleccione una Opción</option>
-                                            <option value="1">Laptop - Portatil</option>
-                                            <option value="2">Escritorio</option>
-                                        </select>
-                                    </div>
-                                    
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div>
-                                        <div class="input-group">
-                                            <span class="input-group-text" id="inputGroup-sizing-default">Contrato</span>
-                                            <input id="eContrato" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="form-check">
-                                        <input id="checkUO" class="form-check-input" type="checkbox" >
-                                        <label class="form-check-label" for="checkUO">
-                                            Unidad Optica
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="checkCamara">
-                                        <label class="form-check-label" for="checkCamara">
-                                            Camara
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="form-check">
-                                        <input id="checkActivo" class="form-check-input" type="checkbox" value="">
-                                        <label class="form-check-label" for="checkActivo">
-                                            Activo
-                                        </label>
-                                    </div>
-                                </div>                         
-                            </div>
-                            <div class="col-12 mt-3 justify-content-center">
-                                <button id="btnGuardarEdicion" type="submit" class="btn btn-primary">Enviar</button>
-                            </div>
-                        </div>
-                    </div>
-                </form> 
-            </div>
-    `
-    modalContainerEditar.classList.add('modal-contenedor-activo');
-}; */
 
 
 
@@ -526,12 +406,12 @@ const modalContainerEditar = document.querySelector('#modal-contenedor-editar')
 }) */
 
 
-/* abrirModalEditar.forEach(btn => {
+abrirModalEditar.forEach(btn => {
     btn.addEventListener('click', () => {
         console.log(btn)
         modalContainerEditar.classList.add('modal-contenedor-activo')
     })
-}) */
+})
 
 /* abrirModalEditar.forEach(btn => {
     btn.addEventListener('k', () => {
