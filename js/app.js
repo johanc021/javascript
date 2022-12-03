@@ -61,6 +61,10 @@ const activos = [
 
 
 
+
+
+
+
 // Clase activo
 class Activo {
     constructor(marca, linea, serial, placa, modelo, tipoEquipo, unidadOptica, camara, contrato, estado) {
@@ -112,10 +116,10 @@ class Activo {
         return busquedaPlaca;
     }
 
-    /* encontrarActivo(index) {
-        const busquedaActivo = activos.find((activo) => activo.index === index)
-        return busquedaActivo;
-    } */
+    Actualizar(placa){
+        const actualizar = activos.find((activo) => activo.placa == placa);
+        return actualizar;
+    }
 }
 
 
@@ -166,12 +170,12 @@ const loadArray = (activos) => {
             const editar = document.getElementById(activo.placa);
             /* console.log(editar); */
             editar.addEventListener('click', () => {
-                modalContainerEditar.classList.add('modal-contenedor-activo')
+                /* modalContainerEditar.classList.add('modal-contenedor-activo') */
+                
                 const editar = document.getElementById(activo.placa);
 
                 editar.addEventListener("click", (e) => {
-                    /* openModal(e.target.id); */
-                    console.log(e.target.id)
+                    openModal(e.target.id);
                     /* openModal(activo.placa) */
 
                 });
@@ -197,25 +201,27 @@ const loadArray = (activos) => {
     }
 }
 
-/* const openModal = (id) => {
+const openModal = (id) => {
 
 
     const activo = activos.find((activo) => activo.placa === parseInt(id));
-    console.log(activo)
+    const checkunidadO = activo.unidadOptica;
+    const checkCam = activo.camara;
+    const checkEst = activo.estado;
+
+
+    /* console.log(checkunidadO) */
     modalContainerEditar.innerHTML = `
             <div id="form-modal" class="form-modal">
-                <form action="" class="form">
+                <form action="" class="form" onsubmit="return false">
                     <div>
                     <div class="row align-items-start">
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="col-12">
-                                        <select id="eMarca" class="form-select" aria-label="Default select example" onchange="selectMarca()">
+                                        <select id="eMarca" name = "eMarca" class="form-select" aria-label="Default select example" onchange="selectMarca()">
                                             <option selected>Seleccione una Marca</option>
-                                            <option value="1">Asus</option>
-                                            <option value="2">Acer</option>
-                                            <option value="3">HP</option>
-                                            <option value="4">Toshiba</option>
+                                            
                                         </select>
                                     </div>
                                 </div>
@@ -223,21 +229,21 @@ const loadArray = (activos) => {
                                     <div>
                                         <div class="input-group">
                                             <span class="input-group-text" id="inputGroup-sizing-default">Linea</span>
-                                            <input id="eLinea" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                            <input id="eLinea" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value = "${activo.linea}">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group">
                                         <span class="input-group-text" id="inputGroup-sizing-default">Serial</span>
-                                        <input id="eSerial" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                        <input id="eSerial" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value = "${activo.serial}">
                                     </div>
                                 </div>
                                 <div class="input-group mb-3">
                                     <div>
                                         <div class="input-group">
                                             <span class="input-group-text" id="inputGroup-sizing-default">Placa</span>
-                                            <input id="ePlaca" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                            <input id="ePlaca" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value = "${activo.placa}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -245,7 +251,7 @@ const loadArray = (activos) => {
                                     <div>
                                         <div class="input-group">
                                             <span class="input-group-text" id="inputGroup-sizing-default">Modelo</span>
-                                            <input id="eModelo" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                            <input id="eModelo" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value = "${activo.modelo}">
                                         </div>
                                     </div>
                                 </div>
@@ -253,10 +259,9 @@ const loadArray = (activos) => {
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="col-12">
-                                        <select id="eTipoEquipo" class="form-select" aria-label="Default select example" onchange="selectTipoPortatil()">
+                                        <select id="eTipoEquipo" name = "eTipoEquipo" class="form-select" aria-label="Default select example" onchange="selectTipoPortatil()">
                                             <option selected>Seleccione una Opción</option>
-                                            <option value="1">Laptop - Portatil</option>
-                                            <option value="2">Escritorio</option>
+
                                         </select>
                                     </div>
                                     
@@ -265,47 +270,225 @@ const loadArray = (activos) => {
                                     <div>
                                         <div class="input-group">
                                             <span class="input-group-text" id="inputGroup-sizing-default">Contrato</span>
-                                            <input id="eContrato" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                            <input id="eContrato" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value = "${activo.contrato}">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="form-check">
-                                        <input id="checkUO" class="form-check-input" type="checkbox" >
-                                        <label class="form-check-label" for="checkUO">
+                                        <input id="eCheckUO" class="form-check-input" type="checkbox" >
+                                        <label class="form-check-label" for="eCheckUO">
                                             Unidad Optica
                                         </label>
                                     </div>
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="checkCamara">
-                                        <label class="form-check-label" for="checkCamara">
+                                        <input class="form-check-input" type="checkbox" value="" id="eCheckCamara">
+                                        <label class="form-check-label" for="eCheckCamara">
                                             Camara
                                         </label>
                                     </div>
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="form-check">
-                                        <input id="checkActivo" class="form-check-input" type="checkbox" value="">
-                                        <label class="form-check-label" for="checkActivo">
+                                        <input id="eCheckActivo" class="form-check-input" type="checkbox" value="">
+                                        <label class="form-check-label" for="eCheckActivo">
                                             Activo
                                         </label>
                                     </div>
                                 </div>                         
                             </div>
                             <div class="col-12 mt-3 justify-content-center">
-                                <button id="btnGuardarEdicion" type="submit" class="btn btn-primary">Enviar</button>
+                                <button id="btnActualizar" type="submit" class="btn btn-primary">Enviar</button>
                             </div>
                         </div>
                     </div>
                 </form> 
             </div>
     `
-    modalContainerEditar.classList.add('modal-contenedor-activo');
-}; */
+
+    modalContainerEditar.classList.add('modal-contenedor-activo')
+
+    const verificacionCheckOU = (checkunidadO == 'SI') ? document.getElementById("eCheckUO").checked = true : document.getElementById("echeckUO").checked = false;
+
+    const verificacionCheckCam = (checkCam == 'SI') ? document.getElementById("eCheckCamara").checked = true : document.getElementById("eCheckCamaraO").checked = false;
+
+    const verificacionCheckEst = (checkEst == 'SI') ? document.getElementById("eCheckActivo").checked = true : document.getElementById("eCheckActivo").checked = false;
+
+    cargar_marcas()
+    cargar_tiposEquipos()
+
+    const btnActu = document.querySelector('#btnActualizar');
+    btnActu.addEventListener('click', () => {
+        actualizarActivo(activo.placa);
+        modalContainerEditar.classList.remove('modal-contenedor-activo');
+    })
+
+    editCheckUnidadOptica()
+    editCheckCamara()
+    editCheckEstado()
+    
+};
+
+// funcion para cargar array tipos de equipos
+
+function cargar_tiposEquipos() {
+    const arraySelectTipoEquipos = ["Laptop - portatil", "Escritorio"];
+
+    // Ordena el Array Alfabeticamente)):
+    arraySelectTipoEquipos.sort();
+
+    
+    agregarOpcionesTiposEquipos("eTipoEquipo", arraySelectTipoEquipos)
+    
+}
+
+//carga de datos select tipos equipos
+
+function agregarOpcionesTiposEquipos(elementoDOM, array) {
+    const select = document.getElementsByName(elementoDOM)[0];
+    for (valor in array) {
+        const opcion = document.createElement("option");
+        opcion.text = array[valor];
+        select.add(opcion);
+    }
+}
+
+// funcion para cargar array marcas
+
+function cargar_marcas() {
+    const arrayMarcas = ["Asus", "Acer", "HP", "Toshiba"];
+
+    // Ordena el Array Alfabeticamente)):
+    arrayMarcas.sort();
+
+    agregarOpcionesMarca("eMarca", arrayMarcas);
+}
+
+//carga de datos select marcas
+
+function agregarOpcionesMarca(elementoDOM, array) {
+    const select = document.getElementsByName(elementoDOM)[0];
+
+    for (valor in array) {
+        const opcion = document.createElement("option");
+        opcion.text = array[valor];
+        select.add(opcion);
+    }
+}
+
+// Validacion checkbox unidad optica para editar
+
+const editCheckUnidadOptica = () => {
+    //validacion check unidad optica - Editar
+    const eCheckboxUO = document.getElementById('eCheckUO')
+    eCheckboxUO.addEventListener("change", evalidaCheckboxUO, false);
+
+    function evalidaCheckboxUO() {
+        let checked = eCheckboxUO.checked;
+        const verificacion = (checked) ? estado = 'SI' : estado = 'NO'
+        /* console.log(verificacion) */
+        return verificacion
+    }
+}
+
+const editCheckCamara = () => {
+    // Validacon de check camara para editar
+    const eCheckboxCamara = document.getElementById('eCheckCamara')
+
+    eCheckboxCamara.addEventListener("change", evalidaCheckCamara, false);
+
+    function evalidaCheckCamara() {
+        let checked = eCheckboxCamara.checked;
+        const verificacion = (checked) ? camara = 'SI' : camara = 'NO'
+        /* console.log(verificacion) */
+        return verificacion
+    }
+}
+
+const editCheckEstado = () => {
+    // Validacion de check estado para editar
+
+    const eCheckboxEstado = document.getElementById('eCheckActivo')
+
+    eCheckboxEstado.addEventListener("change", evalidacheckEstado, false);
+
+    function evalidacheckEstado() {
+        let checked = eCheckboxEstado.checked;
+        const verificacion = (checked) ? estado = 'Activo' : estado = 'Inactivo'
+        /* console.log(verificacion) */
+        return verificacion
+    }
+    
+}
 
 
+
+const actualizarActivo = (index) => {
+
+    Swal.fire({
+        title: 'Está seguro de actualizar el registro?',
+        text: 'Esta acción no es reversible',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, estoy seguro',
+        cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+
+            //Actualiza activo
+            const activo = activos.find((activo) => activo.placa === parseInt(index));
+            /* console.log(activo.contrato) */
+            activo.marca = eSelectMarca();
+            activo.linea = document.querySelector('#eLinea').value;
+            activo.serial = document.querySelector('#eSerial').value;
+            activo.placa = document.querySelector('#ePlaca').value;
+            activo.modelo = document.querySelector('#eModelo').value;
+            activo.tipoEquipo = eSelectTipoEquipo();
+            activo.contrato = document.querySelector('#eContrato').value;
+            activo.unidadOptica = 'NO';
+
+            loadArray(instanciaActivo.listarActivos());
+
+            //confirma la actualizacion
+            Swal.fire({
+                title: 'Actualizado correctamente',
+                icon: 'success',
+                confirmButtonText: 'Cerrar',
+                timer: 1500
+            })
+        }
+    })
+    
+
+}
+
+
+// Select Marca
+function eSelectMarca() {
+    /* Para obtener el valor */
+    /* let cod = document.getElementById("marca").value;
+    return cod; */
+
+    /* Para obtener el texto */
+    let combo = document.getElementById("eMarca");
+    let selected = combo.options[combo.selectedIndex].text;
+    return selected
+}
+
+// Select tipo Equipo
+function eSelectTipoEquipo() {
+    /* Para obtener el valor */
+    /* let cod = document.getElementById("tipoEquipo").value;
+    return cod; */
+
+    /* Para obtener el texto */
+    let combo = document.getElementById("eTipoEquipo");
+    let selected = combo.options[combo.selectedIndex].text;
+    return selected
+}
 
 const buscar = () => {
     let valorBusqueda = document.getElementById('buscador').value;
@@ -346,9 +529,6 @@ const eliminarActivo = (index) => {
         }
     })
 }
-
-
-
 
 const agregarActivo = () => {
 
@@ -519,43 +699,5 @@ btnGuardar.addEventListener('click', (e) => {
 
 
 const abrirModalEditar = document.querySelector('#btnEditar');
-const modalContainerEditar = document.querySelector('#modal-contenedor-editar')
+const modalContainerEditar = document.querySelector('#modal-contenedor-editar');
 
-/* abrirModalEditar.addEventListener('click', () => {
-    modalContainerEditar.classList.add('modal-contenedor-activo')
-}) */
-
-
-/* abrirModalEditar.forEach(btn => {
-    btn.addEventListener('click', () => {
-        console.log(btn)
-        modalContainerEditar.classList.add('modal-contenedor-activo')
-    })
-}) */
-
-/* abrirModalEditar.forEach(btn => {
-    btn.addEventListener('k', () => {
-        console.log(btn)
-        modalContainerEditar.classList.add('modal-contenedor-activo')
-    })
-}) */
-
-
-const abrirModEditar = (/* marca,  */linea, serial, placa/* , modelo, tipoEquipo, unidadOptica, camara, contrato, estado */) => {
-
-    /* const editarMarca = document.querySelector('#eMarca').value = marca */
-    const editarLinea = document.querySelector('eLinea').value = linea;
-    const editarSerial = document.querySelector('eSerial').value = serial;
-    const editarPlaca = document.querySelector('ePlaca').value = placa;
-
-}
-
-const editarActivo = (index) => {
-
-    /* console.log(activos[index].marca) */
-    /* console.log(index) */
-
-    const editActivo = { marca, linea, serial, placa, modelo, tipoEquipo, unidadOptica, camara, contrato, estado } = activos[index]
-
-    abrirModEditar(linea, serial, placa);
-}
