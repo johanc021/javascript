@@ -50,17 +50,19 @@ function cargarJSON() {
                     /* console.log(e.target.id) */
                     /* console.log(e.target.value) */
                     if (e.target.id == parseInt(documento)) {
-                        Toastify({
-                            text: 'El registro ' + id + ' de la tabla se editara',
-                            duration: 3000,
-                            position: 'right',
-                            gravity: 'top',
-                            backgroundColor: 'linear-gradient(to right, #00b09b, #96c92d)',
-                            offset: {
-                                x: '50px', // horizontal axis - can be a number or a string indicating unity. eg: '2em'
-                                y: '50px' // vertical axis - can be a number or a string indicating unity. eg: '2em'
-                            },
-                        }).showToast();
+                        setTimeout(() =>{
+                            Toastify({
+                                text: 'El registro ' + id + ' de la tabla se editara',
+                                duration: 3000,
+                                position: 'right',
+                                gravity: 'top',
+                                backgroundColor: 'linear-gradient(to right, #00b09b, #96c92d)',
+                                offset: {
+                                    x: '50px', // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+                                    y: '50px' // vertical axis - can be a number or a string indicating unity. eg: '2em'
+                                },
+                            }).showToast();
+                        }, 10000)
                     }
 
                 });
@@ -73,17 +75,20 @@ function cargarJSON() {
                     /* console.log(e.target.value) */
 
                     if (e.target.id == `borrar-${id}`){
-                        Toastify({
-                            text: 'El registro ' + id + ' de la tabla se borrara',
-                            duration: 3000,
-                            position: 'right',
-                            gravity: 'top',
-                            backgroundColor: 'linear-gradient(to right, #00b09b, #96c92d)',
-                            offset: {
-                                x: '50px', // horizontal axis - can be a number or a string indicating unity. eg: '2em'
-                                y: '50px' // vertical axis - can be a number or a string indicating unity. eg: '2em'
-                            },
-                        }).showToast();
+                        setTimeout(() =>{
+                            Toastify({
+                                text: 'El registro ' + id + ' de la tabla se borrara',
+                                duration: 3000,
+                                position: 'right',
+                                gravity: 'top',
+                                backgroundColor: 'linear-gradient(to right, #00b09b, #96c92d)',
+                                offset: {
+                                    x: '50px', // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+                                    y: '50px' // vertical axis - can be a number or a string indicating unity. eg: '2em'
+                                },
+                            }).showToast();
+                        }, 2000)
+                        
                     }
                 })
 
