@@ -166,21 +166,17 @@ const loadArray = (activos) => {
             tr.append(btns);
             tabla.append(tr);
 
-            
             //para boton editar
             const editar = document.getElementById(activo.placa);
             /* console.log(editar); */
-            editar.addEventListener('click', () => {
                 /* modalContainerEditar.classList.add('modal-contenedor-activo') */
-                
-                const editar = document.getElementById(activo.placa);
 
                 editar.addEventListener("click", (e) => {
                     openModal(e.target.id);
                     /* openModal(activo.placa) */
 
                 });
-            })
+
 
         });
     } else {

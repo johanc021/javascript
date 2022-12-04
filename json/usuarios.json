@@ -3,7 +3,7 @@
         "ID" : "1",
         "nombre" : "Johan Castellanos",
         "tipoDocumento" : "Cedula de Ciudadania",
-        "documento" : "1075684212",
+        "documento" : 1075684212,
         "correo" : "facjoh@hotmail.com",
         "usuario" : "johan022",
         "tipoUsuario" : "Administrador"
@@ -12,7 +12,7 @@
         "ID" : "2",
         "nombre" : "Jenny Diaz",
         "tipoDocumento" : "Cedula de Ciudadania",
-        "documento" : "734596331",
+        "documento" : 734596331,
         "correo" : "correo@hotmail.com",
         "usuario" : "Pirs",
         "tipoUsuario" : "Estandar"
@@ -21,7 +21,7 @@
         "ID" : "3",
         "nombre" : "Antonella Rodriguez",
         "tipoDocumento" : "Cedula de Ciudadania",
-        "documento" : "1073325765",
+        "documento" : 1073325765,
         "correo" : "antorodriguez@hotmail.com",
         "usuario" : "antor",
         "tipoUsuario" : "Estandar"
