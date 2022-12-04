@@ -166,6 +166,7 @@ const loadArray = (activos) => {
             tr.append(btns);
             tabla.append(tr);
 
+            
             //para boton editar
             const editar = document.getElementById(activo.placa);
             /* console.log(editar); */
