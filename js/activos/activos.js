@@ -9,8 +9,7 @@ const activos = [
         tipoEquipo: "Laptop - Portatil",
         unidadOptica: "SI",
         camara: "SI",
-        contrato: "CCV-030-2021",
-        estado: "Activo"
+        contrato: "CCV-030-2021"
     },
     {
         id: 2,
@@ -20,9 +19,8 @@ const activos = [
         placa: 2054,
         modelo: "2021",
         tipoEquipo: "Laptop - Portatil",
-        unidadOptica: "NO",
-        camara: "SI",
-        contrato: "CCV-055-2021",
-        estado: "Activo"
+        unidadOptica: "SI",
+        camara: "NO",
+        contrato: "CCV-055-2021"
     },
 ];

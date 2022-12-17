@@ -322,6 +322,7 @@ tr {
 .error {
     color: red;
     margin: 0;
+    font-size: 13px;
 }
 
 

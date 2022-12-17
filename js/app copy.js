@@ -434,7 +434,6 @@ const actualizarActivo = (index) => {
 
 }
 
-
 // Select Marca
 function eSelectMarca() {
     /* Para obtener el valor */
@@ -640,7 +639,6 @@ function validacheckEstado() {
         return estado
     } */
 }
-
 
 window.addEventListener('load', loadArray(instanciaActivo.listarActivos()));
 
