@@ -14,9 +14,7 @@ function verificarUsuarioContraseña() {
     const verPassword = (password.value == usuarioRecuperado.password) ? true : false
 
     if (verCorreo && verPassword){
-        console.log("El correo y contraseña son iguales")
-        window.location.href = '../../index.html';
-        return true
+        window.location.href = '../../welcome.html';
     }else {
         Swal.fire({
             icon: 'error',
@@ -30,8 +28,6 @@ const iniciarSesion = function (e) {
     e.preventDefault();
 
     verificarUsuarioContraseña()
-    /* console.log(correo.value) */
-
 }
 
 btnIngresar.addEventListener('click', iniciarSesion);
