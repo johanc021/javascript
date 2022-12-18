@@ -5,7 +5,6 @@ const modalContainer = document.querySelector('#modal-contenedor')
 
 const modalEditar = document.querySelector('#modal-contenedor-editar')
 
-
 abrirModal.addEventListener('click', () => {
     modalContainer.innerHTML = `
         <div id="form-modal" class="form-modal">
@@ -102,7 +101,7 @@ abrirModal.addEventListener('click', () => {
                             </div>                       
                         </div>
                         <div class="col-12 mt-3 justify-content-center">
-                            <button id="btnGuardar" type="submit" class="btn btn-primary">Enviar</button>
+                            <button id="btnGuardar" type="submit" class="btn btn-primary">Guardar</button>
                         </div>
                     </div>
                 </div>
@@ -122,7 +121,6 @@ abrirModal.addEventListener('click', () => {
     const btnGuardar = document.querySelector('#btnGuardar')
     btnGuardar.addEventListener('click', (e) => {
         e.preventDefault();
-        /* guardarActivo() */
         verificarGuardar()
     })
 })
@@ -136,7 +134,6 @@ abrirModal.addEventListener('click', () => {
         return e.target.value
     })
 } */
-
 
 // array activo
 const arrayActivo = []
@@ -160,7 +157,6 @@ function Activo(id, marca, linea, serial, placa, modelo, tipoEquipo, unidadOptic
     this.unidadOptica = unidadOptica,
     this.camara = camara,
     this.contrato = contrato
-
 }
 
 //carnando arraActivos y recorrido
@@ -228,17 +224,14 @@ const validarNumero = (numero) => {
     return /^[0-9]*(\.?)[0-9]+$/g.test(numero);
 }
 
-/* console.log(validarNumero(' ')) */
-
-/* console.log(validarTexto('Asus Tuf Gaming F15 ')) */
-
 // verifica los datos
 const verificarGuardar = () => {
+
     let selects = "No ha seleccionado una opción" 
     let textoNum = "El valor debe contener minimo 5 caracteres y puede incluir texto y numeros"
     let numero = "Ingrese solo numeros"
 
-    let verificacion1, verificacion2, verificacion3
+    let verificacion1, verificacion2
 
     let marca = document.querySelector('#marca')
     let selectMarca = marca.options[marca.selectedIndex].text
@@ -278,45 +271,18 @@ const verificarGuardar = () => {
         verificacion2 = true
     }
 
-    if(!validarTexto(linea)){
-        const linea = document.getElementById('errorLinea')
-        linea.innerHTML = textoNum
-    } else {
-        const linea = document.getElementById('errorLinea')
-        linea.innerHTML = " "
-    }
+    const eLinea = document.getElementById('errorLinea')
+    const eSerial = document.getElementById('errorSerial')
+    const ePlaca = document.getElementById('errorPlaca')
+    const eModelo = document.getElementById('errorModelo')
+    const eContrato = document.getElementById('errorContrato')
 
-    if (!validarTexto(serial)) {
-        const serial = document.getElementById('errorSerial')
-        serial.innerHTML = textoNum
-    } else {
-        const serial = document.getElementById('errorSerial')
-        serial.innerHTML = " "
-    }
+    const vL = (validarTexto(linea)) ? eLinea.innerText = " " : eLinea.innerText = textoNum
+    const vS = (validarTexto(serial)) ? eSerial.innerText = " " : eSerial.innerText = textoNum
+    const vP = (validarNumero(placa)) ? ePlaca.innerText = " " : ePlaca.innerText = numero
+    const vM = (validarNumero(modelo)) ? eModelo.innerText = " " : eModelo.innerText = numero
+    const vC = (validarTexto(contrato)) ? eContrato.innerText = " "  :  eContrato.innerText = textoNum
 
-    if (!validarNumero(placa)) {
-        const placa = document.getElementById('errorPlaca')
-        placa.innerHTML = numero
-    } else {
-        const placa = document.getElementById('errorPlaca')
-        placa.innerHTML = " "
-    }
-
-    if (!validarNumero(modelo)) {
-        const modelo = document.getElementById('errorModelo')
-        modelo.innerHTML = numero
-    } else {
-        const modelo = document.getElementById('errorModelo')
-        modelo.innerHTML = " "
-    }
-
-    if (!validarTexto(contrato)) {
-        const contrato = document.getElementById('errorContrato')
-        contrato.innerHTML = textoNum
-    } else {
-        const contrato = document.getElementById('errorContrato')
-        contrato.innerHTML = " "
-    }
 
     if (verificacion1 && verificacion2 && validarTexto(linea) && validarTexto(serial) && validarNumero(placa) && validarNumero(modelo) && validarTexto(contrato) ){
         
@@ -353,9 +319,7 @@ const verificarGuardar = () => {
 
 }
 
-
-
-// guarda el activo
+// guarda el activo (HAy que borrarlo - quedo en verificar)
 const guardarActivo = () => {
 
     //obtiene index ultimo elemento del array
@@ -402,58 +366,6 @@ const guardarActivo = () => {
         },
     }).showToast();
 }
-
-
-
-
-
-// copia el activo
-/* const guardarActivo = () => {
-
-    //obtiene index ultimo elemento del array
-    let index = arrayActivo.length - 1
-    //suma 1 al ultimo elemento id del array para el nuevo registro
-    let id = arrayActivo[index].id + 1
-
-    let marca = document.querySelector('#marca')
-    let selectMarca = marca.options[marca.selectedIndex].text
-
-    let linea = document.querySelector('#linea').value    //texto y numero
-
-    let serial = document.querySelector('#serial').value  //texto y numero
-
-    let placa = document.querySelector('#placa').value  //numero
-
-    let modelo = document.querySelector('#modelo').value //numero
-
-    let tipoEquipo = document.querySelector('#tipoEquipo')
-    let selectTipoEquipo = tipoEquipo.options[tipoEquipo.selectedIndex].text
-
-    let unidadOptica = verificarCheck(document.querySelector('#checkUO').checked)
-
-    let camara = verificarCheck(document.querySelector('#checkCamara').checked)
-
-    let contrato = document.querySelector('#contrato').value
-
-
-    let nuevoActivo = new Activo(id, selectMarca, linea, serial, placa, modelo, selectTipoEquipo, unidadOptica, camara, contrato)
-
-    arrayActivo.push(nuevoActivo)
-    loadArray(arrayActivo)
-    modalContainer.classList.remove('modal-contenedor-activo')
-
-    Toastify({
-        text: 'Activo guardado con Exito!!',
-        duration: 3000,
-        position: 'right',
-        gravity: 'top',
-        backgroundColor: 'linear-gradient(to right, #00b09b, #96c92d)',
-        offset: {
-            x: '50px', // horizontal axis - can be a number or a string indicating unity. eg: '2em'
-            y: '50px' // vertical axis - can be a number or a string indicating unity. eg: '2em'
-        },
-    }).showToast();
-} */
 
 //verifica los checkbox
 const verificarCheck = (checked) => {
@@ -504,66 +416,84 @@ const openModal = (id) => {
 
     modalEditar.innerHTML = `
             <div id="form-modal" class="form-modal">
-                <form action="" class="form" onsubmit="return false">
-                    <div class="modal-header mb-1">
-                        <h5 class="modal-title">Editar Activo</h5>
-                        <a type="button" id="cerrarModalE" class="btn-close"></a>
-                    </div>
+            <form action="" class="form">
+                <div class="container">
+                <div class="modal-header mb-1">
+                    <h5 class="modal-title"> Datos del Activo</h5>
+                    <a type="button" id="cerrarModalE" class="btn-close"></a>
+                </div>
                     <div class="row align-items-start">
                         <div class="col-6">
                             <div class="input-group mb-3">
                                 <div class="col-12">
-                                    <select id="eMarca" name = "eMarca" class="form-select" aria-label="Default select example">
-                                        <option selected>Seleccione una Marca</option>
+                                    <select id="eMarca" class="form-select" aria-label="Default select example" onchange="">
+                                        <option selected>Seleccione una opción</option>
                                         <option value="1">Asus</option>
                                         <option value="2">Acer</option>
                                         <option value="3">HP</option>
                                         <option value="4">Toshiba</option>
                                     </select>
                                 </div>
+                                <p class="error" id="errorMarca"></p>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div>
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="inputGroup-sizing-default">Linea</span>
+                                        <input id="eLinea" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="${activo.linea}">
+                                    </div>
+                                </div>
+                                <p class="error" id="errorLinea"></p>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Linea</span>
-                                    <input id="eLinea" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value = "${activo.linea}">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Serial</span>
+                                    <input id="eSerial" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="${activo.serial}">
                                 </div>
+                                <p class="error" id="errorSerial"></p>
                             </div>
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Serial</span>
-                                <input id="eSerial" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value = "${activo.serial}">
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Placa</span>
-                                    <input id="ePlaca" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value = "${activo.placa}" readonly>
+                                <div>
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="inputGroup-sizing-default">Placa</span>
+                                        <input id="ePlaca" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="${activo.placa}">
+                                    </div>
                                 </div>
+                                <p class="error" id="errorPlaca"></p>
                             </div>
                             <div class="input-group">
-                                <div class="input-group">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Modelo</span>
-                                    <input id="eModelo" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value = "${activo.modelo}">
+                                <div>
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="inputGroup-sizing-default">Modelo</span>
+                                        <input id="eModelo" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="${activo.modelo}">
+                                    </div>
                                 </div>
+                                <p class="error" id="errorModelo"></p>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="input-group mb-3">
                                 <div class="col-12">
-                                    <select id="eTipoEquipo" name = "eTipoEquipo" class="form-select" aria-label="Default select example">
-                                        <option selected>Seleccione una Opción</option>
+                                    <select id="eTipoEquipo" class="form-select" aria-label="Default select example" onchange="">
+                                        <option selected>Seleccione una opción</option>
                                         <option value="1">Laptop - Portatil</option>
                                         <option value="2">Escritorio</option>
                                     </select>
                                 </div>
+                                <p class="error" id="errorTipoEquipo"></p>
                             </div>
                             <div class="input-group mb-3">
-                                <div class="input-group">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Contrato</span>
-                                    <input id="eContrato" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value = "${activo.contrato}">
+                                <div>
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="inputGroup-sizing-default">Contrato</span>
+                                        <input id="eContrato" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="${activo.contrato}">
+                                    </div>
                                 </div>
+                                <p class="error" id="errorContrato"></p>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="form-check">
-                                    <input id="eCheckUO" class="form-check-input" type="checkbox">
+                                    <input id="eCheckUO" class="form-check-input" type="checkbox" >
                                     <label class="form-check-label" for="eCheckUO">
                                         Unidad Optica
                                     </label>
@@ -571,20 +501,20 @@ const openModal = (id) => {
                             </div>
                             <div class="input-group mb-3">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="eCheckCamara">
+                                    <input class="form-check-input" type="checkbox" value="" id="eCheckCamara">
                                     <label class="form-check-label" for="eCheckCamara">
                                         Camara
                                     </label>
                                 </div>
-                            </div>
-                        
+                            </div>                       
                         </div>
                         <div class="col-12 mt-3 justify-content-center">
-                            <button id="btnActualizar" type="submit" class="btn btn-primary">Enviar</button>
+                            <button id="btnActualizar" type="submit" class="btn btn-primary">Actualizar</button>
                         </div>
                     </div>
-                </form> 
-            </div>
+                </div>
+            </form> 
+        </div>
     `  
         modalEditar.classList.add('modal-contenedor-activo')
 
@@ -601,13 +531,169 @@ const openModal = (id) => {
     })
 
     const btnActu = document.querySelector('#btnActualizar');
-    btnActu.addEventListener('click', () => {
-        console.log(btnActu)
-        /* actualizarActivo(activo.placa); */
-        /* modalContainerEditar.classList.remove('modal-contenedor-activo'); */
+    btnActu.addEventListener('click', (e) => {
+        e.preventDefault()        
+        verificarGuardarEditado(activo.placa)
     })
-
-    /* editCheckUnidadOptica()
-    editCheckCamara()
-    editCheckEstado() */
 };
+
+const verificarGuardarEditado = (index) => {
+
+    let selects = "No ha seleccionado una opción"
+    let textoNum = "El valor debe contener minimo 5 caracteres y puede incluir texto y numeros"
+    let numero = "Ingrese solo numeros"
+
+    let verificacion1, verificacion2
+
+    let marca = document.querySelector('#eMarca')
+    let selectMarca = marca.options[marca.selectedIndex].text
+
+    let tipoEquipo = document.querySelector('#eTipoEquipo')
+    let selectTipoEquipo = tipoEquipo.options[tipoEquipo.selectedIndex].text
+
+    let linea = document.querySelector('#eLinea').value
+
+    let serial = document.querySelector('#eSerial').value
+
+    let placa = document.querySelector('#ePlaca').value
+
+    let modelo = document.querySelector('#eModelo').value
+
+    let unidadOptica = verificarCheck(document.querySelector('#eCheckUO').checked)
+
+    let camara = verificarCheck(document.querySelector('#eCheckCamara').checked)
+
+    let contrato = document.querySelector('#eContrato').value
+
+    if (selectMarca === 'Seleccione una opción') {
+        const marca = document.getElementById('errorMarca')
+        marca.innerText = selects
+    } else {
+        const marca = document.getElementById('errorMarca')
+        marca.innerText = " "
+        verificacion1 = true
+    }
+
+    if (selectTipoEquipo === 'Seleccione una opción') {
+        const tipoE = document.getElementById('errorTipoEquipo')
+        tipoE.innerText = selects
+    } else {
+        const tipoE = document.getElementById('errorTipoEquipo')
+        tipoE.innerText = " "
+        verificacion2 = true
+    }
+
+    const eLinea = document.getElementById('errorLinea')
+    const eSerial = document.getElementById('errorSerial')
+    const ePlaca = document.getElementById('errorPlaca')
+    const eModelo = document.getElementById('errorModelo')
+    const eContrato = document.getElementById('errorContrato')
+
+    const vL = (validarTexto(linea)) ? eLinea.innerText = " " : eLinea.innerText = textoNum
+    const vS = (validarTexto(serial)) ? eSerial.innerText = " " : eSerial.innerText = textoNum
+    const vP = (validarNumero(placa)) ? ePlaca.innerText = " " : ePlaca.innerText = numero
+    const vM = (validarNumero(modelo)) ? eModelo.innerText = " " : eModelo.innerText = numero
+    const vC = (validarTexto(contrato)) ? eContrato.innerText = " " : eContrato.innerText = textoNum
+
+
+    if (verificacion1 && verificacion2 && validarTexto(linea) && validarTexto(serial) && validarNumero(placa) && validarNumero(modelo) && validarTexto(contrato)) {
+
+        Swal.fire({
+            title: 'Está seguro de actualizar el registro?',
+            text: 'Esta acción no es reversible',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, estoy seguro',
+            cancelButtonText: 'No, cancelar'
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+
+                //Actualiza activo
+                const activo = activos.find((activo) => activo.placa === parseInt(index));
+
+                activo.marca = selectMarca
+                activo.linea = linea
+                activo.serial = serial
+                activo.modelo = modelo
+                activo.tipoEquipo = selectTipoEquipo
+                activo.contrato = contrato
+                activo.unidadOptica = unidadOptica
+                activo.camara = camara
+
+                loadArray(arrayActivo)
+                modalEditar.classList.remove('modal-contenedor-activo');
+
+                //confirma la actualizacion
+                Swal.fire({
+                    title: 'Actualizado correctamente',
+                    icon: 'success',
+                    confirmButtonText: 'Cerrar',
+                    timer: 1500
+                })
+            }
+        })
+
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Corrija los errores',
+        })
+    }
+
+}
+
+
+document.getElementById("buscador").addEventListener("keyup", encontrando);
+
+function encontrando() {
+    const searchText = document.getElementById('buscador').value.toLowerCase();
+    console.log(searchText)
+}
+
+
+
+
+
+
+
+/* function doSearch() {
+
+    const tableReg = document.getElementById('table');
+
+    const searchText = document.getElementById('buscador').value.toLowerCase();
+    console.log(searchText)
+
+    let total = 0;
+
+    // Recorremos todas las filas con contenido de la tabla
+
+    for (let i = 1; i < tableReg.rows.length; i++) {
+        // Si el td tiene la clase "noSearch" no se busca en su cntenido
+        if (tableReg.rows[i].classList.contains("noSearch")) {
+            continue;
+        }
+
+
+        let found = false;
+        const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+        // Recorremos todas las celdas
+        for (let j = 0; j < cellsOfRow.length && !found; j++) {
+
+            const compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+            // Buscamos el texto en el contenido de la celda
+            if (searchText.length == 0 || compareWith.indexOf(searchText) > -1) {
+                found = true;
+                total++;
+            }
+        }
+        if (found) {
+            tableReg.rows[i].style.display = '';
+        } else {
+            // si no ha encontrado ninguna coincidencia, esconde la
+            // fila de la tabla
+            tableReg.rows[i].style.display = 'none';
+        }
+    }
+} */

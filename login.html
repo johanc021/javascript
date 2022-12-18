@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <script defer src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    
+    <title>Login</title>
+</head>
+<body class="body">
+    <nav class="nav">
+        <div class="nav__box">
+            <div class="row">
+                <div class="col-12">
+                    <form action="">
+                        <div class="d-flex gap-2">
+                            <div>
+                                <div class="input-group">
+                                    <input class="inputLogin" id="correo" type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Usuario">
+                                </div>
+                            </div>
+                            <div>
+                                <div class="input-group">
+                                    <input class="inputLogin" id="password" type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Contraseña">
+                                </div>
+                            </div>
+                            <button  id="btnIniciarSesion" type="submit" class="btn btn-primary">Iniciar sesión</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="main">
+        <div class="main__descripcion">
+            <h1 id="main__titulo">GESTIONE SUS ACTIVOS DE INFORMACIÓN</h1>
+        </div>
+        <div class="main__Login">
+            <img class="main__img" src="./assets/login/imgLogin.svg" alt="imgLogin">
+        </div>
+    </main>
+    <footer class="footert">
+        <div class="footert__descripcion">
+            <h6>©2022 Viewx. Todos los Derechos Reservados</h6>
+        </div>
+    </footer>
+
+    <script src="./js/datos/dat.js"></script>
+    <script src="./js/login/login.js"></script>
+    
+</body>
+</html>
