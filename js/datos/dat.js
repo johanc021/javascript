@@ -11,7 +11,7 @@ class usuario {
 
 // Instanciando un usuario
 
-const user = new usuario('Johan', 'Castellanos', 1077033245, 'facjohan@gmail.com', 'Johan022', '9876');
+const user = new usuario('Johan', 'Castellanos', 1077033245, 'facjohan@gmail.com', 'Johan022', '8912');
 // Agregando al array.
 const arrayUsuario = [user];
 /* console.log(arrayusuario) */

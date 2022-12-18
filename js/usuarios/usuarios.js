@@ -62,7 +62,7 @@ function cargarJSON() {
                                     y: '50px' // vertical axis - can be a number or a string indicating unity. eg: '2em'
                                 },
                             }).showToast();
-                        }, 10000)
+                        }, 1000)
                     }
 
                 });
@@ -87,7 +87,7 @@ function cargarJSON() {
                                     y: '50px' // vertical axis - can be a number or a string indicating unity. eg: '2em'
                                 },
                             }).showToast();
-                        }, 2000)
+                        }, 1000)
                         
                     }
                 })

@@ -14,7 +14,7 @@ function verificarUsuarioContraseña() {
     const verPassword = (password.value == usuarioRecuperado.password) ? true : false
 
     if (verCorreo && verPassword){
-        window.location.href = '../../welcome.html';
+        window.location.href = '../../pages/welcome/welcome.html';
     }else {
         Swal.fire({
             icon: 'error',
