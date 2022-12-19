@@ -66,8 +66,8 @@ const verificacionRegistro = () => {
                 'You clicked the button!',
                 'success'
             )
+            setTimeout(redirigiendo(), 10000)
             
-            setTimeout(window.location.href = '../../index.html', 10000)
 
         } else {
             Swal.fire({
@@ -80,7 +80,9 @@ const verificacionRegistro = () => {
 
 }
 
-
+const redirigiendo = () => {
+    window.location.href = '../../index.html'
+}
 
 
 const registro = (e) => {

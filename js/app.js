@@ -648,8 +648,8 @@ const verificarGuardarEditado = (index) => {
 document.getElementById("buscador").addEventListener("keyup", encontrando);
 
 function encontrando() {
-    const searchText = document.getElementById('buscador').value.toLowerCase();
-    console.log(searchText)
+    const buscandoTexto = document.getElementById('buscador').value.toLowerCase();
+    console.log(buscandoTexto)
 }
 
 
