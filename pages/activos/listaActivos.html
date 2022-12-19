@@ -39,8 +39,9 @@
         </div>
         <section class="sectionBuscar">
             <div class="divBuscar mt-1 mb-5">
-            <input type="search" name="" id="buscador"  placeholder="Buscar">
-        </div>
+                <input type="search" name="" id="searchInput"  placeholder="Buscar">
+                <!-- <input type="text" class="form-control" id="searchInput" placeholder="Buscar..."> -->
+            </div>
         </section>
         
         <section class="sectionForm overflow-auto">
@@ -48,25 +49,23 @@
                     <div class="row align-items-start">
                         <div class="col-12">
                             <table class="table">
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Marca</th>
-                                    <th scope="col">Linea</th>
-                                    <th scope="col">Serial</th>
-                                    <th scope="col">Placa</th>
-                                    <th scope="col">Modelo</th>
-                                    <th scope="col">Tipo de Equipo</th>
-                                    <th scope="col">Unidad Optica</th>
-                                    <th scope="col">Camara</th>
-                                    <th scope="col">Contrato</th>
-                                    <th scope="col">Acciones</th>
-                                </tr>
-
-                                <tbody id="tabla">
-
-                                    <tr class='noSearch hide'>
-                                        <td colspan="5"></td>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Marca</th>
+                                        <th scope="col">Linea</th>
+                                        <th scope="col">Serial</th>
+                                        <th scope="col">Placa</th>
+                                        <th scope="col">Modelo</th>
+                                        <th scope="col">Tipo de Equipo</th>
+                                        <th scope="col">Unidad Optica</th>
+                                        <th scope="col">Camara</th>
+                                        <th scope="col">Contrato</th>
+                                        <th scope="col">Acciones</th>
                                     </tr>
+                                </thead>
+                                <tbody id="tabla">
+                                
                                 </tbody>
                             </table>
                         </div>
