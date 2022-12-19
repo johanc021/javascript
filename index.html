@@ -14,12 +14,12 @@
     <nav class="nav">
         <div class="nav__box">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 d-flex align-items-center">
                     <form action="">
                         <div class="d-flex gap-2">
                             <div>
                                 <div class="input-group">
-                                    <input class="inputLogin" id="correo" type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Usuario">
+                                    <input class="inputLogin" id="correo" type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Correo">
                                 </div>
                             </div>
                             <div>
@@ -30,6 +30,9 @@
                             <button  id="btnIniciarSesion" type="submit" class="btn btn-primary">Iniciar sesión</button>
                         </div>
                     </form>
+                    <div class="div-registrarse gap-3 ms-2 align-content-center ">
+                        <a href="./pages/registro/registro.html">Registrate</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -50,6 +53,6 @@
 
     <script src="./js/datos/dat.js"></script>
     <script src="./js/login/login.js"></script>
-    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 </html>

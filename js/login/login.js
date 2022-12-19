@@ -1,4 +1,3 @@
-/*-------------2-QuerySelectors-------------*/
 const correo = document.querySelector('#correo');
 
 const password= document.querySelector('#password');
@@ -6,12 +5,16 @@ const password= document.querySelector('#password');
 const btnIngresar = document.querySelector('#btnIniciarSesion');
 
 
+
 //Recuperando usuario y contraseña para comparar
 function verificarUsuarioContraseña() {
     let usuarioRecuperado = JSON.parse(sessionStorage.getItem('loginUsuario'));
 
-    const verCorreo = (correo.value == usuarioRecuperado.correo) ? true : false
-    const verPassword = (password.value == usuarioRecuperado.password) ? true : false
+    /* console.log(usuarioRecuperado.correo)
+    console.log(usuarioRecuperado.password) */
+
+    const verCorreo = (correo.value.trim() == usuarioRecuperado.correo) ? true : false
+    const verPassword = (password.value.trim() == usuarioRecuperado.password) ? true : false
 
     if (verCorreo && verPassword){
         window.location.href = '../../pages/welcome/welcome.html';
@@ -31,3 +34,6 @@ const iniciarSesion = function (e) {
 }
 
 btnIngresar.addEventListener('click', iniciarSesion);
+
+
+

@@ -230,7 +230,7 @@ body {
     margin: 0 auto;
 }
 
-.inputLogin, input{
+.inputLogin, .inputRegistro, input{
     height: 2.3rem;
     /* border-radius: 0.3rem; */
     color: rgb(243, 238, 238);
@@ -242,13 +242,13 @@ body {
     outline:none
 }
 
-.inputLogin, input::placeholder {
+.inputLogin, .inputRegistro, input::placeholder {
     color: white;
     font-weight: 500;
 }
 
-.inputLogin {
-    width: 200px;
+.inputLogin, .inputRegistro {
+    width: 230px;
     
 }
 
@@ -325,4 +325,12 @@ tr {
     font-size: 13px;
 }
 
+.errorInput {
+    border-bottom: 2px solid red
+}
 
+.div-registrarse a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+}

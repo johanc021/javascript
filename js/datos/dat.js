@@ -1,20 +1,19 @@
 class usuario {
-    constructor(nombre, apellido, cedula, correo, nombreUsuario, password) {
-        this.nombre = nombre
-        this.apellido = apellido
-        this.cedula = cedula
+    constructor(nombreApellido, correo, password) {
+        this.nombreApellido = nombreApellido
         this.correo = correo
-        this.nombreUsuario = nombreUsuario
         this.password = password
     }
 }
 
 // Instanciando un usuario
 
-const user = new usuario('Johan', 'Castellanos', 1077033245, 'facjohan@gmail.com', 'Johan022', '8912');
+const arrayUsuario = []
+
+/* const user = new usuario('Johan Castellanos', 'facjohan@gmail.com', '891223');
 // Agregando al array.
 const arrayUsuario = [user];
-/* console.log(arrayusuario) */
+
 
 //agregando al session Storage
-sessionStorage.setItem('loginUsuario', JSON.stringify(user));
+sessionStorage.setItem('loginUsuario', JSON.stringify(user)); */
