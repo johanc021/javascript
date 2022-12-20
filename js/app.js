@@ -376,7 +376,6 @@ const verificarCheck = (checked) => {
 // revierte la conversion verificarCheck
 const inversaCheck = (checked) => {
     const verificacion = (checked == "SI") ? estado = true : estado = false
-    /* console.log(verificacion)  */
     return verificacion
 }
 
@@ -427,11 +426,11 @@ const openModal = (id) => {
                             <div class="input-group mb-3">
                                 <div class="col-12">
                                     <select id="eMarca" class="form-select" aria-label="Default select example" onchange="">
-                                        <option selected>Seleccione una opción</option>
-                                        <option value="1">Asus</option>
-                                        <option value="2">Acer</option>
-                                        <option value="3">HP</option>
-                                        <option value="4">Toshiba</option>
+                                        <option>Seleccione una opción</option>
+                                        <option value="Asus">Asus</option>
+                                        <option value="Acer">Acer</option>
+                                        <option value="HP">HP</option>
+                                        <option value="Toshiba">Toshiba</option>
                                     </select>
                                 </div>
                                 <p class="error" id="errorMarca"></p>
@@ -475,9 +474,9 @@ const openModal = (id) => {
                             <div class="input-group mb-3">
                                 <div class="col-12">
                                     <select id="eTipoEquipo" class="form-select" aria-label="Default select example" onchange="">
-                                        <option selected>Seleccione una opción</option>
-                                        <option value="1">Laptop - Portatil</option>
-                                        <option value="2">Escritorio</option>
+                                        <option>Seleccione una opción</option>
+                                        <option value="Laptop - Portatil">Laptop - Portatil</option>
+                                        <option value="Escritorio">Escritorio</option>
                                     </select>
                                 </div>
                                 <p class="error" id="errorTipoEquipo"></p>
@@ -518,8 +517,23 @@ const openModal = (id) => {
     `  
         modalEditar.classList.add('modal-contenedor-activo')
 
+    //Selects
+    const selectMarca = document.getElementById("eMarca");
+    const selectTipEquipo = document.getElementById('eTipoEquipo')
 
-    //Aqui para los selects
+    function validarSelect(select, valor){
+        for (let i = 0; i < select.options.length; i++) {
+            let option = select.options[i];
+            if (option.value == valor) {
+                option.selected = true;
+                break;
+            }
+        }
+    }
+
+    validarSelect(selectMarca, activo.marca)
+    validarSelect(selectTipEquipo, activo.tipoEquipo)
+
 
     document.querySelector("#eCheckUO").checked = inversaCheck(activo.unidadOptica)
     document.querySelector('#eCheckCamara').checked = inversaCheck(activo.camara)
@@ -644,6 +658,7 @@ const verificarGuardarEditado = (index) => {
 
 }
 
+//Busqueda en la tabla
 // Obtener el campo de búsqueda y la tabla
 const campoDeBusqueda = document.getElementById('searchInput');
 const tabla = document.getElementById('tabla');
