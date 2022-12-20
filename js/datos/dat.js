@@ -10,7 +10,7 @@ class usuario {
 
 const arrayUsuario = []
 
-/* const user = new usuario('Johan Castellanos', 'facjohan@gmail.com', '891223');
+/* const user = new usuario('Johan Castellanos', 'admin@admin.com', 'Admin2022*');
 // Agregando al array.
 const arrayUsuario = [user];
 

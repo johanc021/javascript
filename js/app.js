@@ -125,39 +125,13 @@ abrirModal.addEventListener('click', () => {
     })
 })
 
-//estas van abajo, revisar si las dejo aqui o en funcion de verificar
-/* const linea = () => {
-    let linea = document.querySelector('#linea')
-
-    linea.addEventListener('blur', (e) => {
-        
-        return e.target.value
-    })
-} */
-
 // array activo
 const arrayActivo = []
 
-/* console.log(arrayActivo) */
-
-// agregando los activos al arrayActivo
+// agregando los activos.js al arrayActivo
 activos.forEach((activo) => {
     arrayActivo.push(activo)
 })
-
-//funcion activo para agregar objetos al array
-function Activo(id, marca, linea, serial, placa, modelo, tipoEquipo, unidadOptica, camara, contrato){
-    this.id = id,
-    this.marca = marca,
-    this.linea = linea,
-    this.serial = serial,
-    this.placa = placa,
-    this.modelo = modelo,
-    this.tipoEquipo = tipoEquipo,
-    this.unidadOptica = unidadOptica,
-    this.camara = camara,
-    this.contrato = contrato
-}
 
 //carnando arraActivos y recorrido
 const loadArray = (arrayActivo) => {
@@ -277,21 +251,24 @@ const verificarGuardar = () => {
     const eModelo = document.getElementById('errorModelo')
     const eContrato = document.getElementById('errorContrato')
 
+
+
     const vL = (validarTexto(linea)) ? eLinea.innerText = " " : eLinea.innerText = textoNum
     const vS = (validarTexto(serial)) ? eSerial.innerText = " " : eSerial.innerText = textoNum
     const vP = (validarNumero(placa)) ? ePlaca.innerText = " " : ePlaca.innerText = numero
     const vM = (validarNumero(modelo)) ? eModelo.innerText = " " : eModelo.innerText = numero
     const vC = (validarTexto(contrato)) ? eContrato.innerText = " "  :  eContrato.innerText = textoNum
 
-
+ 
     if (verificacion1 && verificacion2 && validarTexto(linea) && validarTexto(serial) && validarNumero(placa) && validarNumero(modelo) && validarTexto(contrato) ){
         
+        const parseoPlaca = parseInt(placa)
         //obtiene index ultimo elemento del array
         let index = arrayActivo.length - 1
         //suma 1 al ultimo elemento id del array para el nuevo registro
         let id = arrayActivo[index].id + 1
 
-        let nuevoActivo = new Activo(id, selectMarca, linea, serial, placa, modelo, selectTipoEquipo, unidadOptica, camara, contrato)
+        const nuevoActivo = { id: id, marca: selectMarca, linea: linea, serial: serial, placa: parseoPlaca, tipoEquipo: selectTipoEquipo, unidadOptica: unidadOptica, camara: camara, contrato: contrato }
 
         arrayActivo.push(nuevoActivo)
         loadArray(arrayActivo)
@@ -347,8 +324,7 @@ const guardarActivo = () => {
 
     let contrato = document.querySelector('#contrato').value
 
-
-    let nuevoActivo = new Activo(id, selectMarca, linea, serial, placa, modelo, selectTipoEquipo, unidadOptica, camara, contrato)
+    const nuevoActivo = { id: id, marca: selectMarca, linea: linea, serial: serial, placa: placa, modelo: modelo, tipoEquipo: selectTipoEquipo, unidadOptica: unidadOptica, camara: camara, contrato: contrato}
 
     arrayActivo.push(nuevoActivo)
     loadArray(arrayActivo)
@@ -411,7 +387,10 @@ const eliminarActivo = (index) => {
 // modal editar
 const openModal = (id) => {
 
-    const activo = activos.find((activo) => activo.placa === parseInt(id));
+    console.log(id)
+
+    const activo = arrayActivo.find((activo) => activo.placa === parseInt(id));
+    console.log(activo)
 
     modalEditar.innerHTML = `
             <div id="form-modal" class="form-modal">
@@ -624,7 +603,7 @@ const verificarGuardarEditado = (index) => {
             if (result.isConfirmed) {
 
                 //Actualiza activo
-                const activo = activos.find((activo) => activo.placa === parseInt(index));
+                const activo = arrayActivos.find((activo) => activo.placa === parseInt(index));
 
                 activo.marca = selectMarca
                 activo.linea = linea
