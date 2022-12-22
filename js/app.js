@@ -289,22 +289,17 @@ const verificarGuardar = () => {
 
             const nuevoActivo = { id: id, marca: selectMarca, linea: linea, serial: serial, placa: parseoPlaca, modelo: modelo, tipoEquipo: selectTipoEquipo, unidadOptica: unidadOptica, camara: camara, contrato: contrato }
 
-
-            let activosLS = JSON.parse(localStorage.getItem('activosLocalStorage'));
+            const activosLS = JSON.parse(localStorage.setItem('activosLocalStorage')) || [];
 
             if (activosLS){
 
-                /* activosLS.push(3, "HP", "Pavilion Dv6", "DF5E1F2D", 6589, "2653", "2021", "Escritorio", "SI", "NO", "CCV 023 2022") */
                 localStorage.setItem("activosLocalStorage", JSON.stringify(activosLS));
             } else   
             {
+                activosLS.push(nuevoActivo)
                 localStorage.setItem('activosLocalStorage', JSON.stringify(nuevoActivo));
                 
             }
-            /* console.log(arrayLocalStorage) */
-            /* arrayLocalStorage.push(nuevoActivo) */
-
-            /* localStorage.setItem('activosLocalStorage', JSON.stringify(nuevoActivo)); */
 
             arrayActivo.push(nuevoActivo)
             loadArray(arrayActivo)
