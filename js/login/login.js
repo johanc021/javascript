@@ -5,10 +5,10 @@ const password= document.querySelector('#password');
 const btnIngresar = document.querySelector('#btnIniciarSesion');
 
 
+let usuarioRecuperado = JSON.parse(sessionStorage.getItem('loginUsuario'));
 
 //Recuperando usuario y contraseña para comparar
 function verificarUsuarioContraseña() {
-    let usuarioRecuperado = JSON.parse(sessionStorage.getItem('loginUsuario'));
 
     /* console.log(usuarioRecuperado.correo)
     console.log(usuarioRecuperado.password) */
@@ -17,7 +17,11 @@ function verificarUsuarioContraseña() {
     const verPassword = (password.value.trim() == usuarioRecuperado.password) ? true : false
 
     if (verCorreo && verPassword){
-        window.location.href = '../../pages/welcome/welcome.html';
+        
+        const msglogueado = setTimeout(ingresando(usuarioRecuperado.nombreApellido), 0)
+
+        const redirigir = setTimeout(redirigiendoWelcome, 3000)
+        
     }else {
         Swal.fire({
             icon: 'error',
@@ -25,7 +29,26 @@ function verificarUsuarioContraseña() {
             text: 'El correo electronico o contraseña son incorrectos!',
         })
     }
+
+    
 }
+
+function ingresando(texto) {
+    Swal.fire({
+        title: "Bienvenido!!",
+        text: texto,
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#3085d6',
+        color: '#FCFCFC',
+        background: '#252525'
+    })
+}
+
+function redirigiendoWelcome() {
+    window.location.href = '../../pages/welcome/welcome.html';
+}
+
 
 const iniciarSesion = function (e) {
     e.preventDefault();

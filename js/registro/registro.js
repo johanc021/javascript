@@ -61,12 +61,9 @@ const verificacionRegistro = () => {
 
             sessionStorage.setItem('loginUsuario', JSON.stringify(user1));
             
-            Swal.fire(
-                'Registrado!.. en un momento sera redirigido',
-                'You clicked the button!',
-                'success'
-            )
-            setTimeout(redirigiendo(), 10000)
+            const registro = setTimeout(registrado, 0)
+
+            const time = setTimeout(redirigiendo, 3000);
             
 
         } else {
@@ -80,10 +77,15 @@ const verificacionRegistro = () => {
 
 }
 
-const redirigiendo = () => {
-    window.location.href = '../../index.html'
+function registrado() {
+    Swal.fire(
+        'Registrado!.. en un momento sera redirigido'
+    )
 }
 
+function redirigiendo(){
+    window.location.href = '../../index.html'
+}
 
 const registro = (e) => {
     e.preventDefault()

@@ -110,7 +110,6 @@ abrirModal.addEventListener('click', () => {
     `
     modalContainer.classList.add('modal-contenedor-activo')
 
-
     //boton cerrar modal crear activo
     const cerrarModal = document.querySelector('#cerrarModalC')
     cerrarModal.addEventListener('click', () => {
@@ -132,6 +131,10 @@ const arrayActivo = []
 activos.forEach((activo) => {
     arrayActivo.push(activo)
 })
+
+//agregando los activos de localStorage si hay en el arrayActivo
+
+
 
 //carnando arraActivos y recorrido
 const loadArray = (arrayActivo) => {
@@ -201,12 +204,23 @@ const validarNumero = (numero) => {
 // verifica los datos
 const verificarGuardar = () => {
 
+    // Query selectors de error
+
+    const eLinea = document.getElementById('errorLinea')
+    const eSerial = document.getElementById('errorSerial')
+    const ePlaca = document.getElementById('errorPlaca')
+    const eModelo = document.getElementById('errorModelo')
+    const eContrato = document.getElementById('errorContrato')
+
+    //mensajes de error
     let selects = "No ha seleccionado una opción" 
     let textoNum = "El valor debe contener minimo 5 caracteres y puede incluir texto y numeros"
     let numero = "Ingrese solo numeros"
+    let existe = "La placa ingresada existe en el sistema!"
 
     let verificacion1, verificacion2
 
+    // Query selectors inputs, selects
     let marca = document.querySelector('#marca')
     let selectMarca = marca.options[marca.selectedIndex].text
 
@@ -245,102 +259,78 @@ const verificarGuardar = () => {
         verificacion2 = true
     }
 
-    const eLinea = document.getElementById('errorLinea')
-    const eSerial = document.getElementById('errorSerial')
-    const ePlaca = document.getElementById('errorPlaca')
-    const eModelo = document.getElementById('errorModelo')
-    const eContrato = document.getElementById('errorContrato')
+    /* const buscandoDuplicidad = arrayActivo.find((activo) => activo.placa === parseInt(placa)) */
 
-
+    const buscandoDuplicidad = arrayActivo.some((activo) => activo.placa === parseInt(placa))
+    /* console.log(buscandoDuplicidad) */
 
     const vL = (validarTexto(linea)) ? eLinea.innerText = " " : eLinea.innerText = textoNum
     const vS = (validarTexto(serial)) ? eSerial.innerText = " " : eSerial.innerText = textoNum
     const vP = (validarNumero(placa)) ? ePlaca.innerText = " " : ePlaca.innerText = numero
     const vM = (validarNumero(modelo)) ? eModelo.innerText = " " : eModelo.innerText = numero
-    const vC = (validarTexto(contrato)) ? eContrato.innerText = " "  :  eContrato.innerText = textoNum
+    const vC = (validarTexto(contrato)) ? eContrato.innerText = " " : eContrato.innerText = textoNum
 
- 
-    if (verificacion1 && verificacion2 && validarTexto(linea) && validarTexto(serial) && validarNumero(placa) && validarNumero(modelo) && validarTexto(contrato) ){
-        
-        const parseoPlaca = parseInt(placa)
-        //obtiene index ultimo elemento del array
-        let index = arrayActivo.length - 1
-        //suma 1 al ultimo elemento id del array para el nuevo registro
-        let id = arrayActivo[index].id + 1
-
-        const nuevoActivo = { id: id, marca: selectMarca, linea: linea, serial: serial, placa: parseoPlaca, tipoEquipo: selectTipoEquipo, unidadOptica: unidadOptica, camara: camara, contrato: contrato }
-
-        arrayActivo.push(nuevoActivo)
-        loadArray(arrayActivo)
-        modalContainer.classList.remove('modal-contenedor-activo')
-
-        Toastify({
-            text: 'Activo guardado con Exito!!',
-            duration: 3000,
-            position: 'right',
-            gravity: 'top',
-            backgroundColor: 'linear-gradient(to right, #00b09b, #96c92d)',
-            offset: {
-                x: '50px', // horizontal axis - can be a number or a string indicating unity. eg: '2em'
-                y: '50px' // vertical axis - can be a number or a string indicating unity. eg: '2em'
-            },
-        }).showToast();
-
-    }else{
+    if (buscandoDuplicidad == true) {
+        ePlaca.innerText = existe
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Corrija los errores',
+            text: 'La placa ingresada ya existe en el sistema!!',
         })
+
+    } else {
+        if (verificacion1 && verificacion2 && validarTexto(linea) && validarTexto(serial) && validarNumero(placa) && validarNumero(modelo) && validarTexto(contrato)) {
+
+            const parseoPlaca = parseInt(placa)
+            //obtiene index ultimo elemento del array
+            let index = arrayActivo.length - 1
+            //suma 1 al ultimo elemento id del array para el nuevo registro
+            let id = arrayActivo[index].id + 1
+
+            const nuevoActivo = { id: id, marca: selectMarca, linea: linea, serial: serial, placa: parseoPlaca, modelo: modelo, tipoEquipo: selectTipoEquipo, unidadOptica: unidadOptica, camara: camara, contrato: contrato }
+
+
+            let activosLS = JSON.parse(localStorage.getItem('activosLocalStorage'));
+
+            if (activosLS){
+
+                /* activosLS.push(3, "HP", "Pavilion Dv6", "DF5E1F2D", 6589, "2653", "2021", "Escritorio", "SI", "NO", "CCV 023 2022") */
+                localStorage.setItem("activosLocalStorage", JSON.stringify(activosLS));
+            } else   
+            {
+                localStorage.setItem('activosLocalStorage', JSON.stringify(nuevoActivo));
+                
+            }
+            /* console.log(arrayLocalStorage) */
+            /* arrayLocalStorage.push(nuevoActivo) */
+
+            /* localStorage.setItem('activosLocalStorage', JSON.stringify(nuevoActivo)); */
+
+            arrayActivo.push(nuevoActivo)
+            loadArray(arrayActivo)
+            modalContainer.classList.remove('modal-contenedor-activo')
+
+            Toastify({
+                text: 'Activo guardado con Exito!!',
+                duration: 3000,
+                position: 'right',
+                gravity: 'top',
+                backgroundColor: 'linear-gradient(to right, #00b09b, #96c92d)',
+                offset: {
+                    x: '50px', // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+                    y: '50px' // vertical axis - can be a number or a string indicating unity. eg: '2em'
+                },
+            }).showToast();
+
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Corrija los errores',
+            })
+        }
     }
 
-}
-
-// guarda el activo (HAy que borrarlo - quedo en verificar)
-const guardarActivo = () => {
-
-    //obtiene index ultimo elemento del array
-    let index = arrayActivo.length - 1
-    //suma 1 al ultimo elemento id del array para el nuevo registro
-    let id = arrayActivo[index].id + 1
-
-    let marca = document.querySelector('#marca')
-    let selectMarca = marca.options[marca.selectedIndex].text
-
-    let linea = document.querySelector('#linea').value    //texto y numero
-    
-    let serial = document.querySelector('#serial').value  //texto y numero
-
-    let placa = document.querySelector('#placa').value  //numero
-
-    let modelo = document.querySelector('#modelo').value //numero
-
-    let tipoEquipo = document.querySelector('#tipoEquipo')
-    let selectTipoEquipo = tipoEquipo.options[tipoEquipo.selectedIndex].text 
-
-    let unidadOptica = verificarCheck(document.querySelector('#checkUO').checked)
-    
-    let camara = verificarCheck(document.querySelector('#checkCamara').checked)
-
-    let contrato = document.querySelector('#contrato').value
-
-    const nuevoActivo = { id: id, marca: selectMarca, linea: linea, serial: serial, placa: placa, modelo: modelo, tipoEquipo: selectTipoEquipo, unidadOptica: unidadOptica, camara: camara, contrato: contrato}
-
-    arrayActivo.push(nuevoActivo)
-    loadArray(arrayActivo)
-    modalContainer.classList.remove('modal-contenedor-activo')
-    
-    Toastify({
-        text: 'Activo guardado con Exito!!',
-        duration: 3000,
-        position: 'right',
-        gravity: 'top',
-        backgroundColor: 'linear-gradient(to right, #00b09b, #96c92d)',
-        offset: {
-            x: '50px', // horizontal axis - can be a number or a string indicating unity. eg: '2em'
-            y: '50px' // vertical axis - can be a number or a string indicating unity. eg: '2em'
-        },
-    }).showToast();
 }
 
 //verifica los checkbox
@@ -387,13 +377,13 @@ const eliminarActivo = (index) => {
 // modal editar
 const openModal = (id) => {
 
-    console.log(id)
+    /* console.log(id) */
 
     const activo = arrayActivo.find((activo) => activo.placa === parseInt(id));
-    console.log(activo)
+    /* console.log(activo) */
 
     modalEditar.innerHTML = `
-            <div id="form-modal" class="form-modal">
+        <div id="form-modal" class="form-modal">
             <form action="" class="form">
                 <div class="container">
                 <div class="modal-header mb-1">
@@ -404,7 +394,7 @@ const openModal = (id) => {
                         <div class="col-6">
                             <div class="input-group mb-3">
                                 <div class="col-12">
-                                    <select id="eMarca" class="form-select" aria-label="Default select example" onchange="">
+                                    <select id="eMarca" class="form-select" aria-label="Default select example">
                                         <option>Seleccione una opción</option>
                                         <option value="Asus">Asus</option>
                                         <option value="Acer">Acer</option>
@@ -434,7 +424,7 @@ const openModal = (id) => {
                                 <div>
                                     <div class="input-group">
                                         <span class="input-group-text" id="inputGroup-sizing-default">Placa</span>
-                                        <input id="ePlaca" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="${activo.placa}">
+                                        <input id="ePlaca" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="${activo.placa}" readonly>
                                     </div>
                                 </div>
                                 <p class="error" id="errorPlaca"></p>
@@ -513,7 +503,7 @@ const openModal = (id) => {
     validarSelect(selectMarca, activo.marca)
     validarSelect(selectTipEquipo, activo.tipoEquipo)
 
-
+    // Conversion de checkbox SI, NO a true false
     document.querySelector("#eCheckUO").checked = inversaCheck(activo.unidadOptica)
     document.querySelector('#eCheckCamara').checked = inversaCheck(activo.camara)
 
@@ -603,7 +593,7 @@ const verificarGuardarEditado = (index) => {
             if (result.isConfirmed) {
 
                 //Actualiza activo
-                const activo = arrayActivos.find((activo) => activo.placa === parseInt(index));
+                const activo = arrayActivo.find((activo) => activo.placa === parseInt(index));
 
                 activo.marca = selectMarca
                 activo.linea = linea
