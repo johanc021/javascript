@@ -5,57 +5,62 @@ const repetirPassword = document.querySelector('#repetirPassword')
 const btnRegistro = document.querySelector('#btnRegistro')
 
 const validarNombreApellido = (texto) => {
-    return /^[A-Za-z\s{1,5}]+$/g.test(texto);
+    return /^[a-zA-Z\s]{5,}$/.test(texto);
 }
-
-const validarCorreo = (correo) => {
-    return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/g.test(correo)
-}
-
-const validarContraseña = (pass) => {
-    return /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/g.test(pass)
-}
-
-/* console.log(validarContraseña('Jomi4512#$#')) */
 
 const verificacionRegistro = () => {
 
-    let verContraseña
-
-    const verNombreApellido = (!validarNombreApellido(rNombreApellido.value)) ? rNombreApellido.classList.add('errorInput') : rNombreApellido.classList.remove('errorInput') 
-    /* console.log(verNombreApellido) */
-    const verCorreo = (!validarCorreo(rCorreo.value)) ? rCorreo.classList.add('errorInput') : rCorreo.classList.remove('errorInput')
-
-    if (rPassword.value != "" || repetirPassword.value != "") {
-        if (rPassword.value == repetirPassword.value){
-            if (validarContraseña(rPassword.value) && validarContraseña(rPassword.value)){
-                rPassword.classList.remove('errorInput')
-                repetirPassword.classList.remove('errorInput')
-                verContraseña = true
-                guardando()
-            }else{
-                rPassword.classList.add('errorInput')
-                repetirPassword.classList.add('errorInput')
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'La contraseña debe contener de 8 a 16 caracteres y debe contener mayusculas, minusculas, numeros y caracteres especiales .',
-                })
-            }
-        }else{
+    //variables para guardar resultados booleanos
+    let booleanNombreApellido
+    let booleanCorreo
+    let booleanContrasena
+    
+    //validando Nombre y apellido
+    if (validarNombreApellido(rNombreApellido.value)){
+        booleanNombreApellido = true
+        rNombreApellido.classList.remove('errorInput')
+    } else {
+        booleanNombreApellido = false
+        rNombreApellido.classList.add('errorInput')
+    }
+    // validando correo
+    if(validarCorreo(rCorreo.value)){
+        booleanCorreo = true
+        rCorreo.classList.remove('errorInput')
+    } else {
+        booleanCorreo = false
+        rCorreo.classList.add('errorInput')
+    }
+    //validando contraseña
+    if (validarContrasena(rPassword.value) && validarContrasena(repetirPassword.value)){
+        if (rPassword.value == repetirPassword.value) {
+            rPassword.classList.remove('errorInput')
+            repetirPassword.classList.remove('errorInput')
+            booleanContrasena = true
+        } else {
             rPassword.classList.add('errorInput')
             repetirPassword.classList.add('errorInput')
-        }        
-    } else {
+        }
+    }else {
+        booleanContrasena = false
         rPassword.classList.add('errorInput')
         repetirPassword.classList.add('errorInput')
     }
+    // validando variables resultados booleanos
+    if(booleanNombreApellido && booleanCorreo  && booleanContrasena){
+        guardando()
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Hay errores en el formulario!!, recuerde la contraseña debe contener de 8 a 16 caracteres y debe contener letras minusculas, mayusculas, numeros y caracteres especiales ',
+        })
+    }
 
-    /* console.log(verContraseña) */
-
+    // Guardando datos del formulario
     function guardando(){
-        if (validarNombreApellido(rNombreApellido.value) && validarCorreo(rCorreo.value) && verContraseña) {
+
+        if (validarNombreApellido(rNombreApellido.value) && validarCorreo(rCorreo.value) && booleanContrasena) {
             const user1 = new usuario(rNombreApellido.value, rCorreo.value, rPassword.value)
             arrayUsuario.push(user1)
 
@@ -77,15 +82,18 @@ const verificacionRegistro = () => {
 
 }
 
+// mensaje de registro
 function registrado() {
     Swal.fire(
         'Registrado!.. en un momento sera redirigido'
     )
 }
 
+// redirigiendo al index - login
 function redirigiendo(){
     window.location.href = '../../index.html'
 }
+
 
 const registro = (e) => {
     e.preventDefault()

@@ -5,6 +5,9 @@ const modalContainer = document.querySelector('#modal-contenedor')
 
 const modalEditar = document.querySelector('#modal-contenedor-editar')
 
+//LocalStorage para agregar activos creados (se usa en metodo verificarGuardar)
+const activosLS = JSON.parse(localStorage.getItem('activosLocalStorage')) || [];
+
 abrirModal.addEventListener('click', () => {
     modalContainer.innerHTML = `
         <div id="form-modal" class="form-modal">
@@ -132,9 +135,12 @@ activos.forEach((activo) => {
     arrayActivo.push(activo)
 })
 
-//agregando los activos de localStorage si hay en el arrayActivo
+//agregando los activos de localStorage en el arrayActivo
 
-
+activosLS.forEach((activoLS) => {
+    arrayActivo.push(activoLS)
+    /* console.log(activosLS) */
+})
 
 //carnando arraActivos y recorrido
 const loadArray = (arrayActivo) => {
@@ -289,18 +295,12 @@ const verificarGuardar = () => {
 
             const nuevoActivo = { id: id, marca: selectMarca, linea: linea, serial: serial, placa: parseoPlaca, modelo: modelo, tipoEquipo: selectTipoEquipo, unidadOptica: unidadOptica, camara: camara, contrato: contrato }
 
-            const activosLS = JSON.parse(localStorage.setItem('activosLocalStorage')) || [];
+            //buscando en localStorage si existen objetos o los agrega
+            
+            activosLS.push(nuevoActivo)
+            localStorage.setItem("activosLocalStorage", JSON.stringify(activosLS));
 
-            if (activosLS){
-
-                localStorage.setItem("activosLocalStorage", JSON.stringify(activosLS));
-            } else   
-            {
-                activosLS.push(nuevoActivo)
-                localStorage.setItem('activosLocalStorage', JSON.stringify(nuevoActivo));
-                
-            }
-
+            //agrega al array el nuevo activo
             arrayActivo.push(nuevoActivo)
             loadArray(arrayActivo)
             modalContainer.classList.remove('modal-contenedor-activo')

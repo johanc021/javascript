@@ -16,19 +16,34 @@ function verificarUsuarioContraseña() {
     const verCorreo = (correo.value.trim() == usuarioRecuperado.correo) ? true : false
     const verPassword = (password.value.trim() == usuarioRecuperado.password) ? true : false
 
-    if (verCorreo && verPassword){
-        
-        const msglogueado = setTimeout(ingresando(usuarioRecuperado.nombreApellido), 0)
 
-        const redirigir = setTimeout(redirigiendoWelcome, 3000)
-        
-    }else {
+
+    if (correo.value != "" || password.value != ""){
+        if (verCorreo && verPassword) {
+
+            const msglogueado = setTimeout(ingresando(usuarioRecuperado.nombreApellido), 0)
+
+            const redirigir = setTimeout(redirigiendoWelcome, 3000)
+
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'El correo electronico o contraseña son incorrectos!',
+            })
+        }
+    } else {
+        correo.classList.add('errorInput')
+        password.classList.add('errorInput')
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'El correo electronico o contraseña son incorrectos!',
+            text: 'El correo electronico o contraseña estan vacios!',
         })
     }
+
+
+    
 
     
 }
