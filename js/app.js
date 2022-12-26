@@ -369,11 +369,13 @@ const eliminarActivo = (index) => {
     })
 }
 
+
+
+
 // modal editar
 const openModal = (id) => {
 
-    /* console.log(id) */
-
+    //obteniendo activo del array
     const activo = arrayActivo.find((activo) => activo.placa === parseInt(id));
     /* console.log(activo) */
 
@@ -516,6 +518,8 @@ const openModal = (id) => {
 };
 
 const verificarGuardarEditado = (index) => {
+    
+    /* console.log(index) */
 
     let selects = "No ha seleccionado una opción"
     let textoNum = "El valor debe contener minimo 5 caracteres y puede incluir texto y numeros"
@@ -622,7 +626,6 @@ const verificarGuardarEditado = (index) => {
 
 }
 
-//Busqueda en la tabla
 // Obtener el campo de búsqueda y la tabla
 const campoDeBusqueda = document.getElementById('searchInput');
 const tabla = document.getElementById('tabla');
