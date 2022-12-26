@@ -187,7 +187,7 @@ const loadArray = (arrayActivo) => {
             //boton eliminar
             const eliminar = document.getElementById(activo.id)
             eliminar.addEventListener("click", (e) => {
-                eliminarActivo(index)
+                eliminarActivo(index, activo.id)
                 //console.log(e.target.id)
             })
 
@@ -341,8 +341,8 @@ const inversaCheck = (checked) => {
 }
 
 // elimina activo
-const eliminarActivo = (index) => {
-
+const eliminarActivo = (index, id) => {
+    /* console.log(index) */
     Swal.fire({
         title: 'Está seguro?',
         text: 'Esta acción no es reversible',
@@ -356,6 +356,7 @@ const eliminarActivo = (index) => {
 
             //elimina activo
             arrayActivo.splice(index, 1);
+            eliminarLS(id)
             loadArray(arrayActivo)
 
             //confirma la eliminacion
@@ -369,6 +370,21 @@ const eliminarActivo = (index) => {
     })
 }
 
+const eliminarLS = (id) => {
+    //editando datos del localStorage
+    /* console.log(id) */
+    const activoRecuperado = JSON.parse(localStorage.getItem('activosLocalStorage'));
+    const existe = activoRecuperado.some((activo) => activo.id === id)
+
+    
+    /* console.log(existe) */
+    if (existe) {
+
+        let filtrarArrayLS = activoRecuperado.filter(activo => activo.id !== id);
+
+        localStorage.setItem("activosLocalStorage", JSON.stringify(filtrarArrayLS));
+    }
+}
 
 
 
@@ -603,6 +619,7 @@ const verificarGuardarEditado = (index) => {
                 activo.unidadOptica = unidadOptica
                 activo.camara = camara
 
+                editarActivoLS(index, selectMarca, linea, serial, modelo, selectTipoEquipo, contrato, unidadOptica, camara)
                 loadArray(arrayActivo)
                 modalEditar.classList.remove('modal-contenedor-activo');
 
@@ -624,6 +641,29 @@ const verificarGuardarEditado = (index) => {
         })
     }
 
+}
+
+const editarActivoLS = (index, selectMarca, linea, serial, modelo, selectTipoEquipo, contrato, unidadOptica, camara) => {
+    /* console.log(index) */
+
+    //editando datos del localStorage
+    const activoRecuperado = JSON.parse(localStorage.getItem('activosLocalStorage'));
+    const existe = activoRecuperado.some((activo) => activo.placa === index)
+    /* console.log(existe) */
+    if(existe){
+        const actLS =  activoRecuperado.find((activo) => activo.placa === index)
+        
+        actLS.marca = selectMarca,
+        actLS.linea = linea,
+        actLS.serial = serial,
+        actLS.modelo = modelo,
+        actLS.selectTipoEquipo = selectTipoEquipo,
+        actLS.contrato = contrato,
+        actLS.unidadOptica = unidadOptica,
+        actLS.camara = camara 
+
+        localStorage.setItem("activosLocalStorage", JSON.stringify(activoRecuperado));
+    }
 }
 
 // Obtener el campo de búsqueda y la tabla
